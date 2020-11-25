@@ -35,7 +35,6 @@ class screen
 		bool put(int x, int y, char item);
 		bool put(int x, int y, int terrain);
 		bool putHero(int x, int y);
-		bool putDiamond(int x, int y);
 
 		// directions
 		const int NORTH = 1;
@@ -53,13 +52,17 @@ class screen
 
 		bool init();
 
+		int getKey();
+
+		int refreshWin();
+
 	private:
 
 		WINDOW* gamePad;     //hidden pad contains the full current map
 		WINDOW* seenPad;     //hidden pad contains the cells revealed
 		WINDOW* viewPort;    //displayed viewport
 		WINDOW* divider;     //displayed divider
-		// WINDOW* menu;        //displayed menu
+		WINDOW* menu;        //displayed menu
 
 		int x, y;            //cursor position
 		int heroX, heroY;    //hero position

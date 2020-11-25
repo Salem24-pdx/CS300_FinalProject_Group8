@@ -31,8 +31,9 @@ screen::screen()
 
 	viewPort = newwin(LINES, viewPortWidth, 0, 0);
 	divider  = newwin(LINES, 1, 0, viewPortWidth);
-	// menu     = newwin(LINES, menuWidth, 0, viewPortWidth + 1);
+	menu     = newwin(LINES, menuWidth, 0, viewPortWidth + 1);
 
+	mvwvline(divider, 0, 0, '#', LINES - 1);
 
 	start_color();
 	// INDEX, FOREGROUND, BACKGROUND
@@ -52,7 +53,7 @@ screen::~screen()
 
 	delwin(viewPort);
 	delwin(divider);
-	// delwin(menu);
+	delwin(menu);
 }
 
 bool screen::put(int x, int y, char item, int terrain)
@@ -75,11 +76,6 @@ bool screen::putHero(int x, int y)
 return true;
 }
 
-bool screen::putDiamond(int x, int y)
-{
-return true;
-}
-
 bool screen::moveCursor(int direction)
 {
 return true;
@@ -92,12 +88,12 @@ return true;
 
 int screen::getCursorX()
 {
-return 0;
+return x;
 }
 
 int screen::getCursorY()
 {
-return 0;
+return y;
 }
 
 bool screen::see(int x, int y)
@@ -107,5 +103,36 @@ return true;
 
 bool screen::init()
 {
+	wclear(viewPort);
+	wclear(menu);
+
+	wclear(gamePad);
+	wclear(seenPad);
+
+	clear();
+
 return true;
+}
+
+// get key from viewPort window
+int screen::getKey()
+{
+	return wgetch(viewPort);
+}
+
+// refresh all windows and screen
+int screen::refreshWin()
+{
+	int v = wrefresh(viewPort);
+	int d = wrefresh(divider);
+	int m = wrefresh(menu);
+
+	int s = refresh();
+
+	if (ERR == v || ERR == d || ERR == m || ERR == s)
+	{
+		return ERR;
+	}
+
+	return OK;
 }
