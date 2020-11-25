@@ -29,11 +29,11 @@ screen::screen()
 		menuWidth = COLS - viewPortWidth - 1;
 	}
 
-	viewPort = newwin(LINES, viewPortWidth, 0, 0);
 	divider  = newwin(LINES, 1, 0, viewPortWidth);
 	menu     = newwin(LINES, menuWidth, 0, viewPortWidth + 1);
+	viewPort = newwin(LINES, viewPortWidth, 0, 0);
 
-	mvwvline(divider, 0, 0, '#', LINES - 1);
+	mvwvline(divider, 0, 0, '#', LINES);
 
 	start_color();
 	// INDEX, FOREGROUND, BACKGROUND
@@ -48,6 +48,11 @@ screen::screen()
 	nodelay(viewPort, TRUE);
 	nodelay(divider, TRUE);
 	nodelay(menu, TRUE);
+
+	//box(menu, 0, 0);
+	box(viewPort, 0, 0);
+
+	refreshWin();
 }
 
 screen::~screen()
@@ -58,6 +63,8 @@ screen::~screen()
 	delwin(viewPort);
 	delwin(divider);
 	delwin(menu);
+
+	endwin();
 }
 
 bool screen::put(int x, int y, char item, int terrain)
@@ -118,18 +125,12 @@ bool screen::init()
 return true;
 }
 
-// check all our windows for a keypress, just in case someone didnt focus the cursor on viewPort
+// just in case someone didnt focus the cursor on viewPort
 int screen::getKey()
 {
 	int key;
 
-	key = getch();
-	if (key != ERR)
-		return key;
-
-	key = wgetch(viewPort);
-	if (key != ERR)
-		return key;
+	// DONT poll stdsrc with getch(). It will put all the windows underneath the main screen.
 
 	key = wgetch(divider);
 	if (key != ERR)
@@ -139,19 +140,21 @@ int screen::getKey()
 	if (key != ERR)
 		return key;
 
+	key = wgetch(viewPort);
+	if (key != ERR)
+		return key;
+
 	return ERR;
 }
 
 // refresh all windows and screen
 int screen::refreshWin()
 {
-	int v = wrefresh(viewPort);
 	int d = wrefresh(divider);
 	int m = wrefresh(menu);
+	int v = wrefresh(viewPort);
 
-	int s = refresh();
-
-	if (ERR == v || ERR == d || ERR == m || ERR == s)
+	if (ERR == v || ERR == d || ERR == m)
 	{
 		return ERR;
 	}
