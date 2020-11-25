@@ -19,7 +19,7 @@ class screen
 	        const char CHEST = '$';
 		const char SHIP = 'S';
 		const char BINOCULARS = 'B';
-		const char NOITEM = ' ';
+		const char NONE = ' ';
 
 		// terrains
 		// todo: set these to color pair reverence values and check datatype
@@ -55,14 +55,17 @@ class screen
 
 	private:
 
-		WINDOW* gamePad;   //hidden pad contains the full current map
-		WINDOW* seenPad;   //hidden pad contains the cells revealed
-		WINDOW* viewPort;  //displayed viewport
-		WINDOW* divider;   //displayed divider
-		WINDOW* menu;      //displayed menu
+		WINDOW* gamePad;     //hidden pad contains the full current map
+		WINDOW* seenPad;     //hidden pad contains the cells revealed
+		WINDOW* viewPort;    //displayed viewport
+		WINDOW* divider;     //displayed divider
+		// WINDOW* menu;        //displayed menu
 
-		int x, y;          //cursor position
-		int heroX, heroY;  //hero position
+		int x, y;            //cursor position
+		int heroX, heroY;    //hero position
+
+		int viewPortWidth;
+		int menuWidth = 10;  //set minimum width of menu window here
 };
 
 #endif /* SCREEN_H */
