@@ -44,6 +44,10 @@ screen::screen()
 	init_pair(HERO,    COLOR_YELLOW, COLOR_RED);
 	init_pair(DIAMOND, COLOR_WHITE,  COLOR_CYAN);
 
+	nodelay(stdscr, TRUE);
+	nodelay(viewPort, TRUE);
+	nodelay(divider, TRUE);
+	nodelay(menu, TRUE);
 }
 
 screen::~screen()
@@ -114,10 +118,28 @@ bool screen::init()
 return true;
 }
 
-// get key from viewPort window
+// check all our windows for a keypress, just in case someone didnt focus the cursor on viewPort
 int screen::getKey()
 {
-	return wgetch(viewPort);
+	int key;
+
+	key = getch();
+	if (key != ERR)
+		return key;
+
+	key = wgetch(viewPort);
+	if (key != ERR)
+		return key;
+
+	key = wgetch(divider);
+	if (key != ERR)
+		return key;
+
+	key = wgetch(menu);
+	if (key != ERR)
+		return key;
+
+	return ERR;
 }
 
 // refresh all windows and screen

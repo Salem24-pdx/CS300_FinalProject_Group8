@@ -68,7 +68,7 @@ class screen
 		int heroX, heroY;    //hero position
 
 		int viewPortWidth;
-		int menuWidth = 10;  //set minimum width of menu window here
+		int menuWidth = 20;  //set minimum width of menu window here
 };
 
 #endif /* SCREEN_H */
