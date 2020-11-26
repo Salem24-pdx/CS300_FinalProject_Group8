@@ -4,7 +4,7 @@
 #include <ncurses.h>
 
 using namespace std;
-
+ 
 // items
 const char FOOD = 'F';
 const char TOOL = 'T';
@@ -13,6 +13,7 @@ const char CHEST = '$';
 const char SHIP = 'S';
 const char BINOCULARS = 'B';
 const char NONE = ' ';
+const char HEROCHAR = '@';
 
 // terrains
 // todo: set these to color pair reverence values and check datatype
@@ -36,40 +37,56 @@ class screen
 		screen();   //set up windows, pads, color pairs
 		~screen();  //tear down widows, pads, color pairs
 
-		// these return true on success
-		bool put(int x, int y, char item, int terrain);
-		bool put(int x, int y, char item);
-		bool put(int x, int y, int terrain);
-		bool putHero(int x, int y);
+		// unless otherwise specified, functions return OK on success, other
 
-		bool moveCursor(int direction);
-		bool putCursor(int x, int y);
+		// item constants: FOOD, TOOL, OBSTACLE, CHEST, SHIP, BINOCULARS, HEROCHAR, NONE
+		// terrain constants: MEADOW, SWAMP, WATER, WALL, HERO, DIAMOND
+		// place an item and/or a terrain on the screen at x,y
+		int put(int x, int y, char item, int terrain);
 
+		// if you use something besides the declared constants above,
+		// be sure to type cast with (char) or (int)
+		int put(int x, int y, char item);
+		int put(int x, int y, int terrain);
+
+		// direction constants: NORTH, SOUTH, EAST, WEST
+		// change the cursor location
+		int moveCursor(int direction);
+		int putCursor(int x, int y);
+
+		// returns cursor x and y
 		int getCursorX();
 		int getCursorY();
 
-		bool see(int x, int y);
+		// clear map and menu windows
+		int init();
 
-		bool init();
-
+		// get key from viewPort window (non-blocking)
 		int getKey();
 
-		int refreshWin();
+		// refresh map and viewPort windows
+		int refresh();
+
+		// center viewPort on coordinate
+		int center(int x, int y);
 
 	private:
 
-		WINDOW* gamePad;     //hidden pad contains the full current map
-		WINDOW* seenPad;     //hidden pad contains the cells revealed
 		WINDOW* viewPort;    //displayed viewport
 		WINDOW* divider;     //displayed divider
 		WINDOW* menu;        //displayed menu
 
 		int x = 0;           //cursor position
 		int y = 0;           //cursor position
-		int heroX, heroY;    //hero position
+		int heroX = 0;       //hero position
+		int heroY = 0;       //hero position
 
 		int viewPortWidth;
-		int menuWidth = 20;  //set minimum width of menu window here
+		int viewPortHeight;
+		int pminrow;         // upper left corner of viewPort rect
+		int pmincol;         // upper left corner of viewPort rect
+
+		int menuWidth = 20;
 };
 
 #endif /* SCREEN_H */

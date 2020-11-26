@@ -16,25 +16,37 @@ screen::screen()
 	if (has_colors() == FALSE) {
 		endwin();
 		printf("ERROR: Your terminal does not support color!\n");
-        	exit(1);
+		exit(1);
 	}
 
-	gamePad = newpad(128, 128);
-	seenPad = newpad(128, 128);
+	// create viewPort pad
+	viewPort = newpad(128, 128);
 
+	// split screen into menu and viewPort
+	// menu gets menuWidth
+	// viewPort gets the rest up to 128
+	// if there is unused space, menu gets it
 	viewPortWidth = COLS - menuWidth - 1;
-	if (viewPortWidth > 128)
-	{
+	if (viewPortWidth > 128) {
 		viewPortWidth = 128;
 		menuWidth = COLS - viewPortWidth - 1;
 	}
 
+	viewPortHeight = LINES;
+	if (viewPortHeight > 128) {
+	viewPortHeight = 128;
+	}
+
+	// create divider and fill it with #
 	divider  = newwin(LINES, 1, 0, viewPortWidth);
-	menu     = newwin(LINES, menuWidth, 0, viewPortWidth + 1);
-	viewPort = newwin(LINES, viewPortWidth, 0, 0);
-
 	mvwvline(divider, 0, 0, '#', LINES);
+	wrefresh(divider);
 
+	// create menu window
+	menu = newwin(LINES, menuWidth, 0, viewPortWidth + 1);
+	wrefresh(menu);
+
+	// define colors
 	start_color();
 	// INDEX, FOREGROUND, BACKGROUND
 	init_pair(MEADOW,  COLOR_BLACK,  COLOR_GREEN);
@@ -44,120 +56,190 @@ screen::screen()
 	init_pair(HERO,    COLOR_YELLOW, COLOR_RED);
 	init_pair(DIAMOND, COLOR_WHITE,  COLOR_CYAN);
 
-	nodelay(stdscr, TRUE);
+	// turn off key input blocking
 	nodelay(viewPort, TRUE);
-	nodelay(divider, TRUE);
-	nodelay(menu, TRUE);
-
-	//box(menu, 0, 0);
-	box(viewPort, 0, 0);
-
-	refreshWin();
+	keypad(viewPort, TRUE);
 }
 
 screen::~screen()
 {
-	delwin(gamePad);
-	delwin(seenPad);
-
+	// delete windows/pads
 	delwin(viewPort);
 	delwin(divider);
 	delwin(menu);
 
+	// reset terminal and end ncurses mode
 	endwin();
 }
 
-bool screen::put(int x, int y, char item, int terrain)
+int screen::put(int x, int y, char item, int terrain)
 {
-return true;
+	if (x < 0 || y < 0 || x > 127 || y > 127) {
+		return ERR;
+	}
+
+	int itemResult = put(x, y, (char) item);
+	int terrainResult = put(x, y, (int) terrain);
+
+	if (itemResult == ERR || terrainResult == ERR) {
+		return ERR;
+	}
+	return OK;
 }
 
-bool screen::put(int x, int y, char item)
+int screen::put(int x, int y, char item)
 {
-return true;
+	if (x < 0 || y < 0 || x > 127 || y > 127) {
+		return ERR;
+	}
+
+	// extract terrain
+	chtype terrain = mvwinch(viewPort, y, x) & A_COLOR;
+
+	// put terrain back with item
+	return mvwaddch(viewPort, y, x, (chtype) (item | terrain));
 }
 
-bool screen::put(int x, int y, int terrain)
+int screen::put(int x, int y, int terrain)
 {
-return true;
+	if (x < 0 || y < 0 || x > 127 || y > 127) {
+		return FALSE;
+	}
+
+	// extract item
+	chtype item = mvwinch(viewPort, y, x) & A_CHARTEXT;
+
+	// put item back with terrain
+	return mvwaddch(viewPort, y, x, (chtype) (item | COLOR_PAIR(terrain)));
 }
 
-bool screen::putHero(int x, int y)
+int screen::moveCursor(int direction)
 {
-return true;
+	// check for edge of map
+	if ((NORTH == direction && y == 0) || (WEST == direction && x == 0) || (SOUTH == direction && y == 127) || (EAST == direction && x == 127)) {
+		return ERR;
+	}
+
+	if (NORTH == direction) {
+		--y;
+	}
+	if (WEST == direction) {
+		--x;
+	}
+	if (SOUTH == direction) {
+		++y;
+	}
+	if (EAST == direction) {
+		++x;
+	}
+
+	return OK;
 }
 
-bool screen::moveCursor(int direction)
+int screen::putCursor(int inx, int iny)
 {
-return true;
-}
+	// check for edge of map
+	if (inx < 0 || inx > 127 || iny < 0 || inx > 127) {
+		return ERR;
+	}
 
-bool screen::putCursor(int x, int y)
-{
-return true;
+	x = inx;
+	y = iny;
+	return OK;
 }
 
 int screen::getCursorX()
 {
-return x;
+	return x;
 }
 
 int screen::getCursorY()
 {
-return y;
+	return y;
 }
 
-bool screen::see(int x, int y)
+int screen::init()
 {
-return true;
+	int v = wclear(viewPort);
+	int w = wclear(menu);
+
+	if (v == ERR || w == ERR) {
+		return ERR;
+	}
+
+	return OK;
 }
 
-bool screen::init()
-{
-	wclear(viewPort);
-	wclear(menu);
-
-	wclear(gamePad);
-	wclear(seenPad);
-
-	clear();
-
-return true;
-}
-
-// just in case someone didnt focus the cursor on viewPort
 int screen::getKey()
 {
-	int key;
-
-	// DONT poll stdsrc with getch(). It will put all the windows underneath the main screen.
-
-	key = wgetch(divider);
-	if (key != ERR)
-		return key;
-
-	key = wgetch(menu);
-	if (key != ERR)
-		return key;
-
-	key = wgetch(viewPort);
-	if (key != ERR)
-		return key;
-
-	return ERR;
+	return wgetch(viewPort);
 }
 
-// refresh all windows and screen
-int screen::refreshWin()
+int screen::refresh()
 {
-	int d = wrefresh(divider);
-	int m = wrefresh(menu);
-	int v = wrefresh(viewPort);
 
-	if (ERR == v || ERR == d || ERR == m)
+	int m = wnoutrefresh(menu);
+
+	//// maintain margin between hero and edge
+	int margin = 3;
+
+	// adjust left edge
+	if (x - pmincol < margin) {
+		pmincol -= margin - (x - pmincol);
+	}
+	// adjust top edge
+	if (y - pminrow < margin) {
+		pminrow -= margin - (y - pminrow);
+	}
+
+	int pmaxcol = pmincol + viewPortWidth - 1;
+	int pmaxrow = pminrow + viewPortHeight - 1;
+
+	// adjust right edge
+	if (pmaxcol - x < margin) {
+		pmincol += margin - (pmaxcol - x);
+		pmaxcol += margin - (pmaxcol - x);
+	}
+	// adjust bottom edge
+	if (pmaxrow - y < margin) {
+		pminrow += margin - (pmaxrow - y);
+		pmaxrow += margin - (pmaxrow - y);
+	}
+
+	//// unless the window is at edge of map
+	if (pmincol < 0) {
+		pmincol = 0;
+	}
+	if (pminrow < 0) {
+		pminrow = 0;
+	}
+	if (pmaxcol > 127) {
+		pmincol = 127 - viewPortWidth + 1;
+	}
+	if (pmaxrow > 127) {
+		pminrow = 127 - viewPortHeight + 1;
+	}
+
+	// place cursor in viewPort
+	wmove(viewPort, y, x);
+	int v = pnoutrefresh(viewPort, pminrow, pmincol, 0, 0, viewPortHeight - 1, viewPortWidth - 1);
+
+	doupdate();
+
+	if (ERR == v || ERR == m)
 	{
 		return ERR;
 	}
 
+	return OK;
+}
+
+int screen::center(int x, int y) {
+	if (x < 0 || y < 0 || x > 127 || y > 127) {
+		return FALSE;
+	}
+
+	pmincol = x - (viewPortWidth / 2);
+	pminrow = y - (viewPortHeight / 2);
 	return OK;
 }
