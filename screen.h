@@ -77,6 +77,7 @@ class screen
 		WINDOW* viewPort;    //displayed viewport
 		WINDOW* divider;     //displayed divider
 		WINDOW* menu;        //displayed menu
+		WINDOW* arrows;      //map edge indicators
 
 		int x = 0;           //cursor position
 		int y = 0;           //cursor position

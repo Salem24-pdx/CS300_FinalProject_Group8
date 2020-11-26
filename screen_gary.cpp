@@ -33,18 +33,23 @@ screen::screen()
 		menuWidth = COLS - viewPortWidth - 1;
 	}
 
-	viewPortHeight = LINES;
+	int lines = LINES;
+	if (lines > 128) {
+		lines = 128;
+	}
+
+	viewPortHeight = lines;
 	if (viewPortHeight > 128) {
 	viewPortHeight = 128;
 	}
 
 	// create divider and fill it with #
-	divider  = newwin(LINES, 1, 0, viewPortWidth);
-	mvwvline(divider, 0, 0, '#', LINES);
+	divider  = newwin(lines, 1, 0, viewPortWidth);
+	mvwvline(divider, 0, 0, '#', lines);
 	wrefresh(divider);
 
 	// create menu window
-	menu = newwin(LINES, menuWidth, 0, viewPortWidth + 1);
+	menu = newwin(lines, menuWidth, 0, viewPortWidth + 1);
 	wrefresh(menu);
 
 	// define colors
@@ -85,14 +90,19 @@ int screen::resize() {
 		menuWidth = COLS - viewPortWidth - 1;
 	}
 
-	viewPortHeight = LINES;
+	int lines = LINES;
+	if (lines > 128) {
+		lines = 128;
+	}
+
+	viewPortHeight = lines;
 	if (viewPortHeight > 128) {
 	viewPortHeight = 128;
 	}
 
-	int d = wresize(divider, LINES, 1);
-        mvwvline(divider, 0, 0, '#', LINES);
-	int m = wresize(menu, LINES, menuWidth);
+	int d = wresize(divider, lines, 1);
+        mvwvline(divider, 0, 0, '#', lines);
+	int m = wresize(menu, lines, menuWidth);
 
         int md = mvwin(divider, 0, viewPortWidth);
         int mm = mvwin(menu, 0, viewPortWidth + 1);
