@@ -26,6 +26,7 @@ screen::screen()
 	// menu gets menuWidth
 	// viewPort gets the rest up to 128
 	// if there is unused space, menu gets it
+	menuWidth = minMenuWidth;
 	viewPortWidth = COLS - menuWidth - 1;
 	if (viewPortWidth > 128) {
 		viewPortWidth = 128;
@@ -70,6 +71,41 @@ screen::~screen()
 
 	// reset terminal and end ncurses mode
 	endwin();
+}
+
+int screen::resize() {
+	// split screen into menu and viewPort
+	// menu gets menuWidth
+	// viewPort gets the rest up to 128
+	// if there is unused space, menu gets it
+	menuWidth = minMenuWidth;
+	viewPortWidth = COLS - menuWidth - 1;
+	if (viewPortWidth > 128) {
+		viewPortWidth = 128;
+		menuWidth = COLS - viewPortWidth - 1;
+	}
+
+	viewPortHeight = LINES;
+	if (viewPortHeight > 128) {
+	viewPortHeight = 128;
+	}
+
+	int d = wresize(divider, LINES, 1);
+        mvwvline(divider, 0, 0, '#', LINES);
+	int m = wresize(menu, LINES, menuWidth);
+
+        int md = mvwin(divider, 0, viewPortWidth);
+        int mm = mvwin(menu, 0, viewPortWidth + 1);
+
+        wrefresh(divider);
+        wrefresh(menu);
+
+	int r = screen::refresh();
+
+        if (d == ERR || m == ERR || r == ERR || md == ERR || mm == ERR) {
+                return ERR;
+        }
+        return OK;
 }
 
 int screen::put(int x, int y, char item, int terrain)
@@ -172,7 +208,11 @@ int screen::init()
 
 int screen::getKey()
 {
-	return wgetch(viewPort);
+	int key = wgetch(viewPort);
+	if (key == KEY_RESIZE) {
+		resize();
+	}
+	return key;
 }
 
 int screen::refresh()

@@ -72,6 +72,8 @@ class screen
 
 	private:
 
+		int resize();
+
 		WINDOW* viewPort;    //displayed viewport
 		WINDOW* divider;     //displayed divider
 		WINDOW* menu;        //displayed menu
@@ -86,7 +88,8 @@ class screen
 		int pminrow;         // upper left corner of viewPort rect
 		int pmincol;         // upper left corner of viewPort rect
 
-		int menuWidth = 20;
+		int minMenuWidth = 20;
+		int menuWidth;
 };
 
 #endif /* SCREEN_H */
