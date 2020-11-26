@@ -27,27 +27,25 @@ void remove_whiffles(int & whiffles, int to_remove)
 
 int check_next(int ch, cell map[128][128], int y, int x, int ymax, int xmax)
 {
-	int temp_y;
-	int temp_x;
 
 	if(ch == KEY_DOWN && y < ymax)
 	{
-		--temp_y;
+		--y;
 	}
 	else if(ch == KEY_DOWN && y < ymax)
 	{
-		++temp_y;
+		++y;
 	}
 	else if(ch == KEY_LEFT && x > 0)
 	{
-		--temp_x;
+		--x;
 	}
 	else if(ch == KEY_RIGHT && x < xmax)
 	{
-		++temp_x;
+		++x;
 	}
 
-	return map[temp_y][temp_x].tile;
+	return map[y][x].tile;
 }
 
 void move(int ch, cell map[128][128], int & y, int & x, int ymax, int xmax, int & energy)
