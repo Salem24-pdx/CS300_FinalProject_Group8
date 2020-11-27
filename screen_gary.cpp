@@ -54,6 +54,7 @@ screen::screen()
 
 	// define colors
 	start_color();
+        use_default_colors();
 	// INDEX, FOREGROUND, BACKGROUND
 	init_pair(MEADOW,  COLOR_BLACK,  COLOR_GREEN);
 	init_pair(SWAMP,   COLOR_BLACK,  COLOR_MAGENTA);
@@ -61,10 +62,12 @@ screen::screen()
 	init_pair(WALL,    COLOR_BLACK,  COLOR_WHITE);
 	init_pair(HERO,    COLOR_YELLOW, COLOR_RED);
 	init_pair(DIAMOND, COLOR_WHITE,  COLOR_CYAN);
+        init_pair(HIDDEN,  -1,           COLOR_BLACK);
 
 	// turn off key input blocking
 	nodelay(viewPort, TRUE);
 	keypad(viewPort, TRUE);
+        wbkgd(viewPort, A_NORMAL|COLOR_PAIR(HIDDEN)|' ');
 }
 
 screen::~screen()

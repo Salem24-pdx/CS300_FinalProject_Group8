@@ -23,6 +23,7 @@ const int WATER = 3;    // black on blue
 const int WALL = 4;     // black on white
 const int HERO = 5;     // yellow on red
 const int DIAMOND = 6;  // white on cyan
+const int HIDDEN = 7;	// normal on black
 
 // directions
 const int NORTH = 1;
