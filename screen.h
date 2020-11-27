@@ -65,7 +65,7 @@ class screen
 		int getKey();
 
 		// refresh map and viewPort windows
-		int refresh();
+		int refreshWin();
 
 		// center viewPort on coordinate
 		int center(int x, int y);

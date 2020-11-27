@@ -110,7 +110,7 @@ int screen::resize() {
         wrefresh(divider);
         wrefresh(menu);
 
-	int r = screen::refresh();
+	int r = screen::refreshWin();
 
         if (d == ERR || m == ERR || r == ERR || md == ERR || mm == ERR) {
                 return ERR;
@@ -225,7 +225,7 @@ int screen::getKey()
 	return key;
 }
 
-int screen::refresh()
+int screen::refreshWin()
 {
 
 	int m = wnoutrefresh(menu);

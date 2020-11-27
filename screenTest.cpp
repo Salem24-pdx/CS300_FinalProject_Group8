@@ -49,6 +49,6 @@ int main() {
 		if (key == 'i') {
 			s.put(s.getCursorX(), s.getCursorY(), (char) item[rand() % 8]);
 		}
-		s.refresh();
+		s.refreshWin();
 	}
 }
