@@ -185,9 +185,9 @@ y 65
 #   "Tool Name" cost X-rating class x y 
 
 [tool]
-"Hi-Tech Tree-cuttin' Axe" 20 2 tree 10 15
-"Bargain Basement Chain Saw" 30 3 tree 15 10
-"Hammer" 10 2 boulder 15 15
+"Hi-Tech Tree-cuttin' Axe" 20 2 1 10 15
+"Bargain Basement Chain Saw" 30 3 1 15 10
+"Hammer" 10 2 2 15 15
 
 # Obstacles and their locations
 #
@@ -196,9 +196,9 @@ y 65
 #   "Obstacle Name" cost class x y 
 
 [obstacle]
-"Large Tree" 40 tree 5 5
-"Rotted Log" 5 tree 5 6
-"Boulder" 15 boulder 7 8
+"Large Tree" 40 1 5 5
+"Rotted Log" 5 1 5 6
+"Boulder" 15 2 7 8
 
 # Special object and ther locations
 #
@@ -223,3 +223,11 @@ true 26 7
 true 19 2
 false 128 0 
 
+# Treasure Chests
+#
+# Format:
+#
+#    chest value x y
+
+[chest]
+chest 200 5 50
