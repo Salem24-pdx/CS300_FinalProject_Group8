@@ -182,12 +182,19 @@ y 65
 #
 # Format:
 #
-#   "Tool Name" cost X-rating class x y 
+#   "Tool Name" cost X-rating type x y purchased
+#
+# Reserved types:
+#
+#   0 - Binoculars
+#   1 - Ship
 
 [tool]
-"Hi-Tech Tree-cuttin' Axe" 20 2 1 10 15
-"Bargain Basement Chain Saw" 30 3 1 15 10
-"Hammer" 10 2 2 15 15
+"Hi-Tech Tree-cuttin' Axe" 20 2 1 10 15 false
+"Bargain Basement Chain Saw" 30 3 1 15 10 false
+"Hammer" 10 2 2 15 15 false
+"Binoculars" 50 0 0 11 11 false
+"Ship" 100 0 1 12 12 false
 
 # Obstacles and their locations
 #
@@ -199,18 +206,6 @@ y 65
 "Large Tree" 40 1 5 5
 "Rotted Log" 5 1 5 6
 "Boulder" 15 2 7 8
-
-# Special object and ther locations
-#
-# Format:
-#
-#    object instance cost x y
-
-[special]
-binoculars 1 100 25 25
-ship 1 50 32 32
-ship 2 50 45 45
-ship 3 20 99 99
 
 # Clues and their locations
 #

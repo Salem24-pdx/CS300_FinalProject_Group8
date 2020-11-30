@@ -37,21 +37,13 @@ struct tool {
         string name;
 	int type;
         int energyDiv;
+	bool purchased;
 };
 
 struct obstacle {
 	string name;
 	int type;
 	int cost;
-};
-
-struct binoculars {
-	int cost;
-};
-
-struct ship {
-	int cost;
-	bool purchased;
 };
 
 struct clue {
