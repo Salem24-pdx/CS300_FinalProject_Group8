@@ -35,6 +35,7 @@ struct food {
 
 struct tool {
         string name;
+	int cost;
 	int type;
         int energyDiv;
 	bool purchased;
