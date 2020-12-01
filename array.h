@@ -4,34 +4,7 @@
  * This is the header file for the map data structure for the world
  * storing the data of each grovnick
  */
-
-#include<iostream>
-using namespace std;
-
-//the structure that store all the data in a cell
-struct Food
-{
-	int number;
-	char * name;
-};
-
-struct Obstacle
-{
-	int number;
-	char * name;
-};
-
-struct Tool
-{
-	int number;
-	char * name;
-};
-
-struct Tile
-{
-	int number;
-	char * name;
-};
+#include"common.h"
 
 struct Cell
 {
@@ -41,6 +14,7 @@ struct Cell
 	Tile * tile;
 	
 	char * clue;			// a point to character array.
+	int chest;	
 	bool diamond;
 	bool ship;
 	bool binocular;
@@ -52,7 +26,8 @@ class Array
 	public:
 	Array();
 	~Array();
-
+		
+	//getters
 	Food *& get_food(int row, int col);
 	Obstacle *& get_obstacle(int row, int col);
 	Tool *& get_tool(int row, int col);
@@ -62,13 +37,18 @@ class Array
 	//get the data in a cell
 	Cell & get_terrain(int row, int col);
 
+	//setters
 	void set_food(int row, int col, Food *&);
 	void set_obstacle(int row, int col, Obstacle *&);
 	void set_tool(int row, int col, Tool *&);
-	void set_tile(int row, int col, Tile *&);
+	void set_tile(int row, int col, Tile *&);	
+
+	void set_terrain(int row, int col, Cell *&);	
 	
-	void set_terrain(int row, int col, Cell *&);
-	
+	//return a single character to check what in the cell
+	char check_cell(int row, int col);
+	//remove tools, obstacle, food, chest, return true if success
+	bool remove_stuff(int row, int col);
 	private:
 	Cell ** array;	
 };

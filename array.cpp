@@ -101,8 +101,39 @@ char Array::check_cell(int row, int col)
 	else if(array[row][col].binocular == true)
 		return BINOCULARS;
 	else
-		return NONE;
-	
+		return NONE;	
+}
+
+//remove tools, obstacle, food, chest, return true if success
+bool remove_stuff(int row, int col)
+{
+	if(array[row][col].food != NULL)
+	{
+		delete array[row][col].food;
+		return true;
+	}
+	else if(array[row][col].obstacle != NULL)
+	{
+		delete array[row][col].obstacle;
+		return true;
+	}
+	else if(array[row][col].tool != NULL)
+	{
+		delete array[row][col].tool;
+		return true;
+	}
+	else if(array[row][col].chest != 0)
+	{
+		array[row][col].chest = 0;
+		return true;
+	}
+	else if(array[row][col].binocular == true)
+	{
+		array[row][col].binocular = false;
+		return true;
+	}
+	else
+		return false;
 }
 
 
