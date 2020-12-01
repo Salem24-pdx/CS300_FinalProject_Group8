@@ -13,7 +13,7 @@ struct Cell
 	Tool * tool;
 	Tile * tile;
 	
-	char * clue;			// a point to character array.
+	char * clue;			// the clue to the diamond
 	int chest;	
 	bool diamond;
 	bool ship;

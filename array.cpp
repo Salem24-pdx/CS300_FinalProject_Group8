@@ -80,6 +80,74 @@ Cell & Array::get_terrain(int row, int col)
 {
 	return array[row][col];
 }
+//setters
+void Array::set_food(int row, int col, Food *& obj)
+{
+	if(array[row][col].food == NULL)			
+	{
+		array[row][col].food = new Food;
+		array[row][col].food -> name = obj -> name;
+		array[row][col].food -> cost = obj -> cost;
+		array[row][col].food -> energy = obj -> energy;
+	}
+	else 
+	{
+		array[row][col].food -> name = obj -> name;
+		array[row][col].food -> cost = obj -> cost;
+		array[row][col].food -> energy = obj -> energy;
+	}	
+}
+
+void Array::set_obstacle(int row, int col, Obstacle *& obj)
+{
+	if(array[row][col].obstacle == NULL)			
+	{
+		array[row][col].obstacle = new Obstacle;
+		array[row][col].obstacle -> name = obj -> name;
+		array[row][col].obstacle -> cost = obj -> cost;
+		array[row][col].obstacle -> type = obj -> type;
+	}
+	else 
+	{
+		array[row][col].obstacle -> name = obj -> name;
+		array[row][col].obstacle -> cost = obj -> cost;
+		array[row][col].obstacle -> type = obj -> type;
+	}
+}
+void Array::set_tool(int row, int col, Tool *& obj)
+{
+	if(array[row][col].tool == NULL)			
+	{
+		array[row][col].tool = new Tool;
+	}
+	array[row][col].tool -> name = obj -> name;
+	array[row][col].tool -> cost = obj -> cost;
+	array[row][col].tool -> type = obj -> type;
+	array[row][col].tool -> energyDiv = obj -> energyDiv;
+	array[row][col].tool -> purchased = obj -> purchased;
+	
+}
+
+void Array::set_tile(int row, int col, Tile *& obj)
+{
+	if(array[row][col].tile == NULL)
+		array[row][col].tile = new Tile;
+	array[row][col].tile -> name = obj -> name;
+	array[row][col].tile -> type = obj -> type;
+}
+void Array::set_terrain(int row, int col, Cell *& obj)
+{
+	set_food(row, col, obj -> food);
+	set_obstacle(row, col, obj -> obstacle);
+	set_tool(row, col, obj -> tool);
+	set_tile(row, col, obj -> tile);
+
+	array[row][col].clue = new char[strlen(obj -> clue) + 1];			
+	strcpy(array[row][col].clue, obj -> clue);
+	array[row][col].diamond = obj -> diamond;
+	array[row][col].ship = obj -> ship;
+	array[row][col].binocular = obj -> binocular;
+}
 
 //check what's in a cell
 char Array::check_cell(int row, int col)
@@ -105,7 +173,7 @@ char Array::check_cell(int row, int col)
 }
 
 //remove tools, obstacle, food, chest, return true if success
-bool remove_stuff(int row, int col)
+bool Array::remove_stuff(int row, int col)
 {
 	if(array[row][col].food != NULL)
 	{
