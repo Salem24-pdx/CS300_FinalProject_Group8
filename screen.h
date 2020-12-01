@@ -2,6 +2,7 @@
 #define SCREEN_H
 
 #include <ncurses.h>
+#include <cstring>
 
 using namespace std;
  
@@ -72,8 +73,8 @@ class screen
 		int center(int x, int y);
     
         // print to top menu
-    int printtomenu(int num, const char * info);
-    int printtobot(int num, const char * info);
+    int printtomenu(int num, string info);
+    int printtobot(int num, string info);
 
 	private:
 
