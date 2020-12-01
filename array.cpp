@@ -12,6 +12,7 @@ Array::Array()
 	for(int i = 0; i < 128; ++i)
 		array[i] = new Cell[128];
 	//initialize
+	/*
 	for(int i = 0; i < 128; ++i)
 		for(int j = 0; j < 128; ++j)
 		{
@@ -21,9 +22,11 @@ Array::Array()
 			array[i][j].tool -> name = NULL;
 			array[i][j].tile -> name = NULL;
 		}
+	*/
 }
 Array::~Array()
 {
+	/*
 	for(int i = 0; i < 128; ++i)
 		for(int j = 0; j < 128; ++j)
 		{
@@ -37,7 +40,7 @@ Array::~Array()
 				delete array[i][j].obstacle -> name;
 			if(array[i][j].tile -> name != NULL)
 				delete array[i][j].tile -> name;
-		}	
+		}*/	
 	delete [] array;
 	delete array;
 }
@@ -77,6 +80,63 @@ Cell & Array::get_terrain(int row, int col)
 {
 	return array[row][col];
 }
+
+//check what's in a cell
+char Array::check_cell(int row, int col)
+{
+	if(array[row][col].food != NULL)
+		return FOOD;
+	else if(array[row][col].obstacle != NULL)
+		return OBSTACLE;
+	else if(array[row][col].tool != NULL)
+		return TOOL;
+	else if(array[row][col].clue != NULL)
+		return CLUE;
+	else if(array[row][col].chest != 0)
+		return CHEST;
+	//else if(array[row][col].diamond == true)
+		//return DIAMOND;
+	else if(array[row][col].ship == true)
+		return SHIP;		
+	else if(array[row][col].binocular == true)
+		return BINOCULARS;
+	else
+		return NONE;	
+}
+
+//remove tools, obstacle, food, chest, return true if success
+bool remove_stuff(int row, int col)
+{
+	if(array[row][col].food != NULL)
+	{
+		delete array[row][col].food;
+		return true;
+	}
+	else if(array[row][col].obstacle != NULL)
+	{
+		delete array[row][col].obstacle;
+		return true;
+	}
+	else if(array[row][col].tool != NULL)
+	{
+		delete array[row][col].tool;
+		return true;
+	}
+	else if(array[row][col].chest != 0)
+	{
+		array[row][col].chest = 0;
+		return true;
+	}
+	else if(array[row][col].binocular == true)
+	{
+		array[row][col].binocular = false;
+		return true;
+	}
+	else
+		return false;
+}
+
+
 
 
 
