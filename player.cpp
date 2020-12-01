@@ -27,6 +27,7 @@ int player::getEnergy()	//Function handling players energy
 {
 	return energy;
 }
+
 int player::loseEnergy(int x)
 {
 	energy = energy - x;
@@ -77,7 +78,10 @@ int player::retrieve(node * head,int check)  //Function to retrieve an item base
 	if(!head)
 		return 0;
 	if(head->data.type == check)
+	{
 		cout<<head->data.name<<endl;
+		return head->data.energyDiv + retrieve(head->next,check);
+	}
 	return	retrieve(head->next,check);
 }
 

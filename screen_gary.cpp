@@ -316,7 +316,7 @@ int screen::printtomenu(int num, const char * info) {
 int screen::printtobot(int num, const char * info) {
     int length = strlen(info);
     if (length > 19) mvwprintw(bot_menu, 1, 1, "Long string");
-    else mvwprintw(bot_menu, 1 + num, 1, "- %s", info);
+    else mvwprintw(bot_menu, 1 + num, 1, info);
     refreshWin();
     return OK;
 }

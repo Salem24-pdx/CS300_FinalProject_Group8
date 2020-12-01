@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-/*	player test;
+	/*player test;
 	test.loseWhiffles(69);
 	tool axe;
 	axe.name = "AXE";
@@ -19,7 +19,8 @@ int main()
 	cout<<(test.getEnergy())<<"\n";
 	test.addTool(axe);
 	test.addTool(hammer);
-	test.displayTools(); //Some testing i did to make sure functions worked as intended for player class */
+	cout<<(test.retrieve(2));
+	//test.displayTools(); //Some testing i did to make sure functions worked as intended for player class */
 
 
 	return 0;

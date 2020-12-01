@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include "screen.h"
 #include <cstdlib>
+#include "player.h"
 
 int main() {
 
@@ -10,11 +11,22 @@ int main() {
 	int terrain[] = {MEADOW, SWAMP, WATER, WALL, HERO, DIAMOND};
 
 	int key = 0;
+	player hero;
+	string ENE = "Energy: ";
+	ENE += to_string(hero.getEnergy());
+	const char *echar = ENE.c_str();
+
+	string WH = "Whiffles: ";
+	WH += to_string(hero.getWhiffles());
+	const char *wchar = WH.c_str();
+
+
+
     
     s.printtomenu(1, "testing line 1");
     s.printtomenu(2, "testing line 2");
-    s.printtobot(1, "bottom test 1");
-    s.printtobot(2, "bottom test 2");
+    s.printtobot(1, wchar);
+    s.printtobot(2, echar);
 
 	while (key != 'q') {
 		key = s.getKey();
