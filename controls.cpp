@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include "controls.h"
 
-void add_energy(int & energy, int to_add)
+/*void add_energy(int & energy, int to_add)
 {
 	energy += to_add;
 	return;
@@ -23,10 +23,12 @@ void remove_whiffles(int & whiffles, int to_remove)
 {
 	whiffles -= to_remove;
 	return;
-}
+}*/
 
-int check_next(int ch, cell map[128][128], int y, int x, int ymax, int xmax)
+int check_next(int ch, array & map, int y, int x, int ymax, int xmax)
 {
+
+	Tile * temp_tile = NULL;
 
 	if(ch == KEY_DOWN && y < ymax)
 	{
@@ -45,26 +47,27 @@ int check_next(int ch, cell map[128][128], int y, int x, int ymax, int xmax)
 		++x;
 	}
 
-	return map[y][x].tile;
+	temp_tile = map.get_tile(y, x);
+	return temp_tile.number;
 }
 
-void move(int ch, cell map[128][128], int & y, int & x, int ymax, int xmax, int & energy)
+void move(int ch, array & map, int & y, int & x, int ymax, int xmax, player & hero)
 {
 	int tile_check;
 
 	tile_check = check_next(ch, map, y, x, ymax, xmax);
-	if(tile_check == 3)
+	if(tile_check == 4)
 	{
-		remove_energy(energy, 1);
+		hero.loseEnergy(1);
 		return;
 	}
 	else if(tile_check == 2)
 	{
-		remove_energy(energy, 2);
+		hero.loseEnergy(2);
 	}
 	else
 	{
-		remove_energy(energy, 1);
+		hero.loseEnergy(1);
 	}
 
 
@@ -86,36 +89,53 @@ void move(int ch, cell map[128][128], int & y, int & x, int ymax, int xmax, int 
 	}
 }
 
-void buy_food(int & whiffles, int & energy, int whiffles_remove, int energy_add)
+void buy_food(player & hero, array & map, int y, int x)
 {
-	if(whiffles < whiffles_remove)
+	food * tile_food = map.get_food(y, x);
+	if(hero.getWhiffles() < tile_food.cost)
 	{
 		return;
 	}
 
-	remove_whiffles(whiffles, whiffles_remove);
-	add_energy(energy, energy_add);
+	
+	hero.addEnergy(tile_food.energy);
+	hero.loseWiffles(tile_food.cost);
 
 	return;
 }
 
-void buy_tool(int & whiffles, int cost)
+void buy_tool(player & hero, array & map, int y, int x)
 {
-	if(whiffles < cost)
+	tool * tile_tool = map.get_tool(y, x);
+	if(hero.getWhiffles() < tile_tool.cost)
 	{
 		return;
 	}
 
-	remove_whiffles(whiffles, cost);
+	hero.addTool(tile_tool);
+	hero.loseWhiffles(tile_tool.cost);
 
 	return;
 }
 
-void remove_obstacle(int & energy, int energy_cost)
+void remove_obstacle(player & hero, array & map, int y, int x)
 {
-	int cost_divider = 1;
+	//not finished
+	obstacle * tile_obstacle = map.get_obstacle(y, x);
+	int cost_divider = hero.retrieve(tile_obstacle.type);
 
-	remove_energy(energy, energy_cost);
+	if(cost_divider == 0)
+	{
+		hero.loseWhiffles(tile_obstacle.cost);
+
+	}
+	return;
+}
+
+void open_chest(player & hero, array & map, int y, int x)
+{
+	chest * tile_chest = map.get_chest(y, x);
+	hero.addWhiffles(tile_chest.value);
 
 	return;
 }
