@@ -305,7 +305,7 @@ int screen::center(int x, int y) {
 	return OK;
 }
 
-int screen::printtomenu(int num, string info) {
+int screen::printtomenu(int num, const char * info) {
     int length = strlen(info);
     if (length > 19) mvwprintw(menu, 0, 1, "Long string");
     else mvwprintw(menu, 0 + num, 1, "- %s", info);
@@ -313,7 +313,7 @@ int screen::printtomenu(int num, string info) {
     return OK;
 }
 
-int screen::printtobot(int num, string info) {
+int screen::printtobot(int num, const char * info) {
     int length = strlen(info);
     if (length > 19) mvwprintw(bot_menu, 1, 1, "Long string");
     else mvwprintw(bot_menu, 1 + num, 1, "- %s", info);
