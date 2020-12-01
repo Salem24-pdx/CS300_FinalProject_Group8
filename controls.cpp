@@ -126,7 +126,7 @@ void remove_obstacle(player & hero, array & map, int y, int x)
 
 	if(cost_divider == 0)
 	{
-		hero.loseWhiffles(tile_obstacle.cost);
+		hero.loseEngery(tile_obstacle.cost);
 
 	}
 	return;
