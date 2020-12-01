@@ -70,6 +70,10 @@ class screen
 
 		// center viewPort on coordinate
 		int center(int x, int y);
+    
+        // print to top menu
+    int printtomenu(int num, const char * info);
+    int printtobot(int num, const char * info);
 
 	private:
 
@@ -78,6 +82,7 @@ class screen
 		WINDOW* viewPort;    //displayed viewport
 		WINDOW* divider;     //displayed divider
 		WINDOW* menu;        //displayed menu
+        WINDOW* bot_menu;    // bottom portion
 		WINDOW* arrows;      //map edge indicators
 
 		int x = 0;           //cursor position

@@ -10,6 +10,11 @@ int main() {
 	int terrain[] = {MEADOW, SWAMP, WATER, WALL, HERO, DIAMOND};
 
 	int key = 0;
+    
+    s.printtomenu(1, "testing line 1");
+    s.printtomenu(2, "testing line 2");
+    s.printtobot(1, "bottom test 1");
+    s.printtobot(2, "bottom test 2");
 
 	while (key != 'q') {
 		key = s.getKey();

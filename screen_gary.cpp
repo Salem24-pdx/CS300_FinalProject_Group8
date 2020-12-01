@@ -5,7 +5,7 @@
 // for abort program:
 #include <cstdio>
 #include <cstdlib>
-
+#include <cstring>
 
 using namespace std;
 
@@ -49,8 +49,10 @@ screen::screen()
 	wrefresh(divider);
 
 	// create menu window
-	menu = newwin(lines, menuWidth, 0, viewPortWidth + 1);
+	menu = newwin(lines-6, menuWidth, 0, viewPortWidth + 1);
+    bot_menu = newwin(5, menuWidth, lines-6, viewPortWidth + 1);
 	wrefresh(menu);
+    wrefresh(bot_menu);
 
 	// define colors
 	start_color();
@@ -76,6 +78,7 @@ screen::~screen()
 	delwin(viewPort);
 	delwin(divider);
 	delwin(menu);
+    delwin(bot_menu);
 
 	// reset terminal and end ncurses mode
 	endwin();
@@ -105,13 +108,16 @@ int screen::resize() {
 
 	int d = wresize(divider, lines, 1);
         mvwvline(divider, 0, 0, '#', lines);
-	int m = wresize(menu, lines, menuWidth);
+	int m = wresize(menu, lines-6, menuWidth);
+    int bm = wresize(bot_menu, 6, menuWidth);
 
         int md = mvwin(divider, 0, viewPortWidth);
         int mm = mvwin(menu, 0, viewPortWidth + 1);
+        int mbm = mvwin(bot_menu, lines-6, viewPortWidth+1);
 
         wrefresh(divider);
         wrefresh(menu);
+        wrefresh(bot_menu);
 
 	int r = screen::refreshWin();
 
@@ -211,6 +217,7 @@ int screen::init()
 {
 	int v = wclear(viewPort);
 	int w = wclear(menu);
+    int bm = wclear(bot_menu);
 
 	if (v == ERR || w == ERR) {
 		return ERR;
@@ -232,6 +239,7 @@ int screen::refreshWin()
 {
 
 	int m = wnoutrefresh(menu);
+    int bm = wnoutrefresh(bot_menu);
 
 	//// maintain margin between hero and edge
 	int margin = 3;
@@ -295,4 +303,20 @@ int screen::center(int x, int y) {
 	pmincol = x - (viewPortWidth / 2);
 	pminrow = y - (viewPortHeight / 2);
 	return OK;
+}
+
+int screen::printtomenu(int num, const char * info) {
+    int length = strlen(info);
+    if (length > 19) mvwprintw(menu, 0, 1, "Long string");
+    else mvwprintw(menu, 0 + num, 1, "- %s", info);
+    refreshWin();
+    return OK;
+}
+
+int screen::printtobot(int num, const char * info) {
+    int length = strlen(info);
+    if (length > 19) mvwprintw(bot_menu, 1, 1, "Long string");
+    else mvwprintw(bot_menu, 1 + num, 1, "- %s", info);
+    refreshWin();
+    return OK;
 }
