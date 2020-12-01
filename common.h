@@ -1,4 +1,14 @@
-// common use data structures and constants
+/*
+ * 
+ */
+
+
+#include<iostream>
+#include<cctype>
+#include<cstring>
+using namespace std;
+
+// common use data structures and constant
 
 // items
 const char FOOD = 'F';
@@ -27,31 +37,31 @@ const int SOUTH = 3;
 const int WEST = 4;
 
 
-struct food {
+struct Food {
 	string name;
 	int cost;
 	int energy;
 };
 
-struct tool {
-        string name;
+struct Tool {
+    string name;
 	int cost;
 	int type;
         int energyDiv;
 	bool purchased;
 };
 
-struct obstacle {
+struct Obstacle {
 	string name;
 	int type;
 	int cost;
 };
 
-struct clue {
+struct Clue {
 	bool accuracy;
 };
 
-struct chest {
+struct Chest {
 	int value;
 };
 
