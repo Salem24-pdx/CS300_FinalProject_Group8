@@ -11,13 +11,14 @@ using namespace std;
 // common use data structures and constant
 
 // items
-const char FOOD = 'F';
-const char TOOL = 'T';
-const char OBSTACLE = '!';
-const char CHEST = '$';
-const char SHIP = 'S';
-const char BINOCULARS = 'B';
-const char NONE = ' ';
+const char FOOD = 'F'; //70
+const char TOOL = 'T'; //85
+const char OBSTACLE = '!'; //33
+const char CHEST = '$'; //36
+const char CLUE = '?';
+const char SHIP = 'S'; //83
+const char BINOCULARS = 'B'; //66
+const char NONE = ' '; //32
 const char HEROCHAR = '@';
 
 // terrains
@@ -57,6 +58,13 @@ struct Obstacle {
 	int cost;
 };
 
+struct Tile{
+	string name;
+	int type;
+};
+
+/*
+
 struct Clue {
 	bool accuracy;
 };
@@ -64,4 +72,5 @@ struct Clue {
 struct Chest {
 	int value;
 };
+*/
 
