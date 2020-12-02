@@ -48,7 +48,7 @@ struct Tool {
     string name;
 	int cost;
 	int type;
-        int energyDiv;
+    int energyDiv;
 	bool purchased;
 };
 
