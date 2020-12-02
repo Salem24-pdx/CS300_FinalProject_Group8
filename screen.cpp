@@ -49,10 +49,13 @@ screen::screen()
 	wrefresh(divider);
 
 	// create menu window
-	menu = newwin(lines-6, menuWidth, 0, viewPortWidth + 1);
-    bot_menu = newwin(5, menuWidth, lines-6, viewPortWidth + 1);
+	menu = newwin(lines-6 - 1, menuWidth - 1, 0 + 1, viewPortWidth + 1 + 1);
+    bot_menu = newwin(6, menuWidth - 1, lines-6, viewPortWidth + 1 + 1);
 	wrefresh(menu);
     wrefresh(bot_menu);
+
+//box(menu,0,0);
+//box(bot_menu,0,0);
 
 	// define colors
 	start_color();
@@ -319,4 +322,28 @@ int screen::printtobot(int num, const char * info) {
     else mvwprintw(bot_menu, 1 + num, 1, info);
     refreshWin();
     return OK;
+}
+
+int screen::printtomenu(string info) {
+	wprintw(menu, info.c_str());
+	refreshWin();
+	return OK;
+}
+
+int screen::printtobot(string info) {
+	wprintw(bot_menu, info.c_str());
+	refreshWin();
+	return OK;
+}
+
+int screen::clearmenu() {
+	werase(menu);
+	refreshWin();
+	return OK;
+}
+
+int screen::clearbot() {
+	werase(bot_menu);
+	refreshWin();
+	return OK;
 }

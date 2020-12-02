@@ -79,6 +79,11 @@ class screen
     int printtomenu(int num, const char * info);
     int printtobot(int num, const char * info);
 
+		int printtomenu(string info);
+		int printtobot(string info);
+		int clearmenu();
+		int clearbot();
+
 	private:
 
 		int resize();
