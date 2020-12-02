@@ -1,3 +1,7 @@
+#include "common.h"
+#include "player.h"
+#include "array.h"
+
 //void add_energy(int & energy, int to_add);
 //void remove_energy(int & energy, int to_remove);
 //void add_whiffles(int & whiffles, int to_add);
