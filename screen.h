@@ -3,9 +3,11 @@
 
 #include <ncurses.h>
 #include <string>
+#include "common.h"
 
 using namespace std;
  
+/*  these moved to common.h
 // items
 const char FOOD = 'F';
 const char TOOL = 'T';
@@ -31,6 +33,7 @@ const int NORTH = 1;
 const int EAST = 2;
 const int SOUTH = 3;
 const int WEST = 4;
+*/
 
 class screen
 {
