@@ -1,3 +1,6 @@
+#ifndef COMMON_H
+#define COMMON_H
+
 /*
  * 
  */
@@ -58,12 +61,11 @@ struct Obstacle {
 	int cost;
 };
 
-struct Tile{
+/*struct Tile{
 	string name;
 	int type;
 };
 
-/*
 
 struct Clue {
 	bool accuracy;
@@ -74,3 +76,5 @@ struct Chest {
 };
 */
 
+
+#endif /* COMMON_H */
