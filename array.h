@@ -15,9 +15,9 @@ struct Cell
 	
 	char * clue;			// the clue to the diamond
 	int chest;	
-	bool diamond;
-	bool ship;
-	bool binocular;
+	//bool diamond;
+	//bool ship;
+	//bool binocular;
 };
 
 //an 2d array that contain cells
