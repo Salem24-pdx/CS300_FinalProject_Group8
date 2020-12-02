@@ -129,6 +129,7 @@ void buy_food(player & hero, array & map, int y, int x)
 	
 	hero.addEnergy(tile_food.energy);
 	hero.loseWiffles(tile_food.cost);
+	map.remove_stuff(y, x);
 
 	return;
 }
@@ -144,6 +145,7 @@ void buy_tool(player & hero, array & map, int y, int x)
 
 	hero.addTool(tile_tool);
 	hero.loseWhiffles(tile_tool.cost);
+	map.remove_stuff(y, x);
 
 	return;
 }
@@ -160,6 +162,7 @@ void remove_obstacle(player & hero, array & map, int y, int x)
 
 	hero.remove(tile_obstacle.name);
 
+	map.remove_stuff(y, x);
 
 	return;
 }
@@ -169,6 +172,8 @@ void open_chest(player & hero, array & map, int y, int x)
 {
 	chest * tile_chest = map.get_chest(y, x);
 	hero.addWhiffles(tile_chest.value);
+
+	map.remove_stuff(y, x);
 
 	return;
 }
