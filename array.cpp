@@ -81,7 +81,7 @@ Cell & Array::get_terrain(int row, int col)
 	return array[row][col];
 }
 //setters
-void Array::set_food(int row, int col, Food *& obj)
+void Array::set_food(int row, int col, Food * obj)
 {
 	if(array[row][col].food == NULL)			
 	{
@@ -98,7 +98,7 @@ void Array::set_food(int row, int col, Food *& obj)
 	}	
 }
 
-void Array::set_obstacle(int row, int col, Obstacle *& obj)
+void Array::set_obstacle(int row, int col, Obstacle * obj)
 {
 	if(array[row][col].obstacle == NULL)			
 	{
@@ -114,7 +114,7 @@ void Array::set_obstacle(int row, int col, Obstacle *& obj)
 		array[row][col].obstacle -> type = obj -> type;
 	}
 }
-void Array::set_tool(int row, int col, Tool *& obj)
+void Array::set_tool(int row, int col, Tool * obj)
 {
 	if(array[row][col].tool == NULL)			
 	{
@@ -128,19 +128,19 @@ void Array::set_tool(int row, int col, Tool *& obj)
 	
 }
 
-void Array::set_tile(int row, int col, Tile *& obj)
+void Array::place_terrain(int row, int col, int type)
 {
 	if(array[row][col].tile == NULL)
 		array[row][col].tile = new Tile;
-	array[row][col].tile -> name = obj -> name;
-	array[row][col].tile -> type = obj -> type;
+	array[row][col].tile -> type = type;
 }
-void Array::set_terrain(int row, int col, Cell *& obj)
+
+void Array::set_terrain(int row, int col, Cell * obj)
 {
 	set_food(row, col, obj -> food);
 	set_obstacle(row, col, obj -> obstacle);
 	set_tool(row, col, obj -> tool);
-	set_tile(row, col, obj -> tile);
+	place_terrain(row, col, obj -> tile -> type);
 
 	array[row][col].clue = new char[strlen(obj -> clue) + 1];			
 	strcpy(array[row][col].clue, obj -> clue);
@@ -159,7 +159,7 @@ char Array::check_cell(int row, int col)
 	else if(array[row][col].tool != NULL)
 		return TOOL;
 	else if(array[row][col].clue != NULL)
-		return CLUE;
+	return CLUE;
 	else if(array[row][col].chest != 0)
 		return CHEST;
 	//else if(array[row][col].diamond == true)

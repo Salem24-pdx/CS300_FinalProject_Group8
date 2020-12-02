@@ -38,12 +38,12 @@ class Array
 	Cell & get_terrain(int row, int col);
 
 	//setters
-	void set_food(int row, int col, Food *&);
-	void set_obstacle(int row, int col, Obstacle *&);
-	void set_tool(int row, int col, Tool *&);
-	void set_tile(int row, int col, Tile *&);	
+	void set_food(int row, int col, Food *);
+	void set_obstacle(int row, int col, Obstacle *);
+	void set_tool(int row, int col, Tool *);
+	void place_terrain(int row, int col, int type);	
 
-	void set_terrain(int row, int col, Cell *&);	
+	void set_terrain(int row, int col, Cell *);	
 	
 	//return a single character to check what in the cell
 	char check_cell(int row, int col);
