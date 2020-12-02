@@ -62,12 +62,12 @@ void move(int ch, player & hero, array & map, int & y, int & x, int ymax, int xm
 
 	//checks to see what the next tile is
 	tile_check = check_next(ch, map, y, x, ymax, xmax);
-	if(tile_check == 4)
+	if(tile_check == WALL)
 	{
 		hero.loseEnergy(1);
 		return;
 	}
-	else if(tile_check == 2)
+	else if(tile_check == SWAMP)
 	{
 		hero.loseEnergy(2);
 	}
