@@ -61,11 +61,11 @@ struct Obstacle {
 	int cost;
 };
 
-/*struct Tile{
+struct Tile{
 	string name;
 	int type;
 };
-
+/*
 
 struct Clue {
 	bool accuracy;
