@@ -6,6 +6,38 @@ player::player()
 	whiffles = 1000;
 	energy = 100;
 	head = NULL;
+	ship = 0;
+	bino = 0;
+}
+
+int player::getBino()
+{
+	return bino;
+}
+int player::addBino()
+{
+	bino = 1;
+	return bino;
+}
+int player::loseBino()
+{
+	bino = 0;
+	return bino;
+}
+
+int player::getShip()
+{
+	return ship;
+}
+int player::inShip()
+{
+	ship = 1;
+	return ship;
+}
+int player::outShip()
+{
+	ship = 0;
+	return ship;
 }
 
 int player::getWhiffles()	//Function handling players whiffles

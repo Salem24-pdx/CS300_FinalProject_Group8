@@ -28,6 +28,14 @@ class player
 		int loseEnergy(int x);
 		int addEnergy(int x);
 
+		int getBino();
+		int loseBino();
+		int addBino();
+
+		int getShip();
+		int inShip();
+		int outShip();
+
 		int displayTools(); //Wrappers for the linked list
 
 		int addTool(tool & to_add);
@@ -38,10 +46,13 @@ class player
 	private:
 		int energy;	//Private data types and functions
 		int whiffles;
+		int ship;
+		int bino;
 		node * head;
 		int addTool(node * & head, tool & to_add);	//Linked list recursive functions
 		int displayTools(node * head);
 		int retrieve(node * head,  int check);
 		int remove (node *  & head, string item);
 		int removeAll(node * &head);
+
 };

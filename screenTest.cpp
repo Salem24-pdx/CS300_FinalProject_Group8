@@ -1,7 +1,7 @@
 #include <ncurses.h>
 #include "screen.h"
 #include <cstdlib>
-//#include "player.h"
+#include "player.h"
 
 int main() {
 
@@ -11,14 +11,14 @@ int main() {
 	int terrain[] = {MEADOW, SWAMP, WATER, WALL, HERO, DIAMOND};
 
 	int key = 0;
-//	player hero;
-//	string ENE = "Energy: ";
-//	ENE += to_string(hero.getEnergy());
-//	const char *echar = ENE.c_str();
+player hero;
+string ENE = "Energy: ";
+ENE += to_string(hero.getEnergy());
+const char *echar = ENE.c_str();
 
-//	string WH = "Whiffles: ";
-//	WH += to_string(hero.getWhiffles());
-//	const char *wchar = WH.c_str();
+string WH = "Whiffles: ";
+WH += to_string(hero.getWhiffles());
+const char *wchar = WH.c_str();
 
 
 
@@ -26,10 +26,10 @@ int main() {
     s.printtomenu(1, "testing line 1");
     s.printtomenu(2, "testing line 2");
 	s.printtomenu( "\nFood: Tootsie Roll\nCost: 1\nEnergy: 20\nOptions:\n1: North\n" );
-	s.printtobot( "BOTTOM TEXT\n" );
+	//s.printtobot( "BOTTOM TEXT\n" );
 
-    //s.printtobot(1, wchar);
-    //s.printtobot(2, echar);
+    s.printtobot(1, wchar);
+    s.printtobot(2, echar);
 
 	while (key != 'q') {
 		key = s.getKey();
