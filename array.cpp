@@ -144,9 +144,9 @@ void Array::set_terrain(int row, int col, Cell * obj)
 
 	array[row][col].clue = new char[strlen(obj -> clue) + 1];			
 	strcpy(array[row][col].clue, obj -> clue);
-	array[row][col].diamond = obj -> diamond;
-	array[row][col].ship = obj -> ship;
-	array[row][col].binocular = obj -> binocular;
+	//array[row][col].diamond = obj -> diamond;
+	//array[row][col].ship = obj -> ship;
+	//array[row][col].binocular = obj -> binocular;
 }
 
 //check what's in a cell
@@ -164,10 +164,12 @@ char Array::check_cell(int row, int col)
 		return CHEST;
 	//else if(array[row][col].diamond == true)
 		//return DIAMOND;
+	/*
 	else if(array[row][col].ship == true)
 		return SHIP;		
 	else if(array[row][col].binocular == true)
 		return BINOCULARS;
+	*/
 	else
 		return NONE;	
 }
@@ -195,11 +197,14 @@ bool Array::remove_stuff(int row, int col)
 		array[row][col].chest = 0;
 		return true;
 	}
+	//Does tile need to be removed?
+	/*
 	else if(array[row][col].binocular == true)
 	{
 		array[row][col].binocular = false;
 		return true;
 	}
+	*/
 	else
 		return false;
 }
