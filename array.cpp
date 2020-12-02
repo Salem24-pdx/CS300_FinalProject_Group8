@@ -124,7 +124,7 @@ void Array::set_tool(int row, int col, Tool * obj)
 	array[row][col].tool -> cost = obj -> cost;
 	array[row][col].tool -> type = obj -> type;
 	array[row][col].tool -> energyDiv = obj -> energyDiv;
-	array[row][col].tool -> purchased = obj -> purchased;
+//	array[row][col].tool -> purchased = obj -> purchased;  ** set ->cost = 0 instead when bought
 	
 }
 
