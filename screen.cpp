@@ -43,8 +43,11 @@ screen::screen()
 	viewPortHeight = 128;
 	}
 
+	// create top margin
+	topMargin = newwin(1, menuWidth, 0, viewPortWidth + 1); 
+	wrefresh(topMargin);
 	// create divider and fill it with #
-	divider  = newwin(lines, 1, 0, viewPortWidth);
+	divider  = newwin(lines, 2, 0, viewPortWidth);
 	mvwvline(divider, 0, 0, '#', lines);
 	wrefresh(divider);
 
@@ -109,22 +112,27 @@ int screen::resize() {
 	viewPortHeight = 128;
 	}
 
-	int d = wresize(divider, lines, 1);
+	int d = wresize(divider, lines, 2);
         mvwvline(divider, 0, 0, '#', lines);
-	int m = wresize(menu, lines-6, menuWidth);
-    int bm = wresize(bot_menu, 6, menuWidth);
+	wresize(topMargin, 1, menuWidth);
+
+	int m = wresize(menu, lines-6 - 1, menuWidth - 1);
+    int bm = wresize(bot_menu, 6, menuWidth - 1);
 
         int md = mvwin(divider, 0, viewPortWidth);
-        int mm = mvwin(menu, 0, viewPortWidth + 1);
-        int mbm = mvwin(bot_menu, lines-6, viewPortWidth+1);
+	mvwin(topMargin, 0, viewPortWidth + 1);
+        int mm = mvwin(menu, 0 + 1, viewPortWidth + 1 + 1);
+        int mbm = mvwin(bot_menu, lines-6, viewPortWidth+1 + 1);
 
+//box(topMargin,0,0);
+	wrefresh(topMargin);
         wrefresh(divider);
         wrefresh(menu);
         wrefresh(bot_menu);
 
 	int r = screen::refreshWin();
 
-        if (d == ERR || m == ERR || r == ERR || md == ERR || mm == ERR) {
+        if (d == ERR || m == ERR || r == ERR || md == ERR || mm == ERR || mbm == ERR) {
                 return ERR;
         }
         return OK;
@@ -243,6 +251,7 @@ int screen::refreshWin()
 
 	int m = wnoutrefresh(menu);
     int bm = wnoutrefresh(bot_menu);
+	wnoutrefresh(topMargin);
 
 	//// maintain margin between hero and edge
 	int margin = 3;

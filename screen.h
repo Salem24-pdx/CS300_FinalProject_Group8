@@ -90,6 +90,7 @@ class screen
 
 		WINDOW* viewPort;    //displayed viewport
 		WINDOW* divider;     //displayed divider
+		WINDOW* topMargin;
 		WINDOW* menu;        //displayed menu
         WINDOW* bot_menu;    // bottom portion
 		WINDOW* arrows;      //map edge indicators
