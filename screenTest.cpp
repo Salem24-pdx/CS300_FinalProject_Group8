@@ -25,7 +25,7 @@ int main() {
     
     s.printtomenu(1, "testing line 1");
     s.printtomenu(2, "testing line 2");
-	s.printtomenu( "Food: Tootsie Roll\nCost: 1\nEnergy: 20\nOptions:\n1: North\n" );
+	s.printtomenu( "\nFood: Tootsie Roll\nCost: 1\nEnergy: 20\nOptions:\n1: North\n" );
 	s.printtobot( "BOTTOM TEXT\n" );
 
     //s.printtobot(1, wchar);
