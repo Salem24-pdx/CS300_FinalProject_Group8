@@ -1,3 +1,4 @@
+
 #include "loader.h"
 #include "common.h"
 
@@ -44,6 +45,8 @@ int loader::loadIn(const char* filename) {
 
 
 	int section = 0;
+	int mapLine = 0;
+
 
 	while (getline(infile, line)) {
 
@@ -63,6 +66,7 @@ int loader::loadIn(const char* filename) {
 		}
 		if (word.rfind("[map]", 0) == 0) {
 			section = LMAP;
+			mapLine = 0;
 			continue;
 		}
 		if (word.rfind("[hero]", 0) == 0) {
@@ -96,8 +100,45 @@ int loader::loadIn(const char* filename) {
 
 		switch(section) {
 			case LMAP :
+				{
+					if (word.length() == 128) {
+printf("%i:", mapLine);
+						for (int x = 0; x < 128; ++x) {
+							char c = word.at(x);
+							int terrain = 0;
+							switch (c) {
+								case '$':
+									terrain = DIAMOND;
+									break;
+								case 'w':
+								case 'W':
+									terrain = WATER;
+									break;
+								case 'l':
+								case 'L':
+									terrain = WALL;
+									break;
+								case 'o':
+								case 'O':
+									terrain = MEADOW;
+									break;
+								case 'x':
+								case 'X':
+									terrain = SWAMP;
+									break;
+							}
+							if (terrain) {
+// TODO								Array::set_terrain(mapLine, x, terrain);
+printf("%c", c);
+							}
+						}
+					++mapLine;
+printf("\n");
+					}
+				}
 				break;
 			case LHERO :
+				// reserved for savegame loading development
 				break;
 			case LFOOD :
 				{
