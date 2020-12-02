@@ -1,3 +1,5 @@
+// expand to load game state from savefile
+// currently used for loading level file, which is a subset of savefile
 
 #include "loader.h"
 #include "common.h"
@@ -12,10 +14,6 @@
 using namespace std;
 
 loader::loader() {
-/*	obstacles.clear();
-	foods.clear();
-	tools.clear();
-*/
 }
 
 loader::~loader() {
@@ -39,7 +37,7 @@ int loader::loadIn(const char* filename) {
 	const int LHERO = 2;
 	const int LFOOD = 3;
 	const int LTOOL = 4;
-	const int LOBSTICAL = 5;
+	const int LOBSTACLE = 5;
 	const int LCLUE = 6;
 	const int LCHEST = 7;
 
@@ -81,8 +79,8 @@ int loader::loadIn(const char* filename) {
 			section = LTOOL;
 			continue;
 		}
-		if (word.rfind("[obstical]", 0) == 0) {
-			section = LOBSTICAL;
+		if (word.rfind("[obstacle]", 0) == 0) {
+			section = LOBSTACLE;
 			continue;
 		}
 		if (word.rfind("[clue]", 0) == 0) {
@@ -138,11 +136,11 @@ printf("\n");
 				}
 				break;
 			case LHERO :
-				// reserved for savegame loading development
+				// reserved for "savegame" development
 				break;
 			case LFOOD :
 				{
-					Food* thisfood = new Food;
+					Food* thisThing = new Food;
 
 					string name = word;
 					if (name.rfind("\"", 0) == 0) {		// name is quoted, so add to it until we find a terminating quote
@@ -158,30 +156,110 @@ printf("\n");
 					if (name.back() == '\"') {
 						name.pop_back();
 					}
-					thisfood->name = name;
+					thisThing->name = name;
 
-					s >> thisfood->cost >> thisfood->energy;
+					s >> thisThing->cost >> thisThing->energy;
 
 					int x, y;
 					s >> x >> y;
 
-					foods.push_back(thisfood);
+					foods.push_back(thisThing);
 
-// TODO					Array::set_food(y, x, thisfood);
-printf("%s\n%i\n%i\n%i\n%i\n\n",thisfood->name.c_str(), thisfood->cost, thisfood->energy, x, y);
-//delete thisfood;
+// TODO					Array::set_food(y, x, thisThing);
+printf("%s\n%i\n%i\n%i\n%i\n\n",thisThing->name.c_str(), thisThing->cost, thisThing->energy, x, y);
 				}
 				break;
 			case LTOOL :
+				{
+					Tool* thisThing = new Tool;
+
+					string name = word;
+					if (name.rfind("\"", 0) == 0) {	 // name is quoted, so add to it until we find a terminating quote
+						while (name.back() != '\"') {
+							string nextpart;
+							s >> nextpart;
+							name = name + " " + nextpart;
+						}
+					}
+					if (name.front() == '\"') {
+						name.erase(0,1);
+					}
+					if (name.back() == '\"') {
+						name.pop_back();
+					}
+					thisThing->name = name;
+
+					s >> thisThing->cost >> thisThing->energyDiv >> thisThing->type;
+
+					int x, y;
+					s >> x >> y;
+
+					tools.push_back(thisThing);
+
+// TODO					Array::set_tool(y, x, thisThing);
+printf("%s\n%i\n%i\n%i\n%i\n%i\n\n", thisThing->name.c_str(), thisThing->cost, thisThing->energyDiv, thisThing->type, x, y);
+				}
 				break;
-			case LOBSTICAL :
+			case LOBSTACLE :
+                                {
+                                        Obstacle* thisThing = new Obstacle;
+
+                                        string name = word;
+                                        if (name.rfind("\"", 0) == 0) {  // name is quoted, so add to it until we find a terminating quote
+                                                while (name.back() != '\"') {
+                                                        string nextpart;
+                                                        s >> nextpart;
+                                                        name = name + " " + nextpart;
+                                                }
+                                        }
+                                        if (name.front() == '\"') {
+                                                name.erase(0,1);
+                                        }
+                                        if (name.back() == '\"') {
+                                                name.pop_back();
+                                        }
+                                        thisThing->name = name;
+
+                                        s >> thisThing->cost >> thisThing->type;
+
+                                        int x, y;
+                                        s >> x >> y;
+
+                                        obstacles.push_back(thisThing);
+
+// TODO                                 Array::set_tool(y, x, thisThing);
+printf("%s\n%i\n%i\n%i\n%i\n\n", thisThing->name.c_str(), thisThing->cost, thisThing->type, x, y);
+                                }
 				break;
 			case LCLUE :
+				{
+					bool clueBool = false;
+					transform(word.begin(), word.end(), word.begin(), ::tolower); // lowercase the true/false
+					if (word.rfind("true", 0) == 0) {
+						clueBool = true;
+					}
+
+					int x, y;
+					s >> x >> y;
+
+// TODO					Array::set_clue(y, x, clueBool);
+printf("%s\n%i\n%i\n%i\n\n", word.c_str(), clueBool, x, y);
+				}
 				break;
 			case LCHEST :
-				break;
+				{
+					int chaChing = 0;
+					//word should be "chest", ((sanitize here))
+					int x, y;
+					s >> chaChing >> x >> y;
+
+// TODO					Array::set_chest(y, x, chaChing);
+printf("chest\n%i\n%i\n%i\n\n", chaChing, x, y);
+				}
+					break;
 			default :
 				continue;
+
 		}
 
 	}
