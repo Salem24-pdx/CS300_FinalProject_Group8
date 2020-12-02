@@ -52,7 +52,7 @@ struct Tool {
 	int cost;
 	int type;
     int energyDiv;
-	bool purchased;
+//	bool purchased;  ** instead of this, just set cost to 0 when purchased
 };
 
 struct Obstacle {
