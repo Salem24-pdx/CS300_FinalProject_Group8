@@ -188,6 +188,8 @@ y 65
 #
 #   0 - Binoculars
 #   1 - Ship
+#
+# tools with x y of -1 -1 could be used to put into player inventory
 
 [tool]
 "Hi-Tech Tree-cuttin' Axe" 20 2 1 10 15 false
@@ -213,7 +215,7 @@ y 65
 #
 #   truthfulness x y
 
-[clues]
+[clue]
 true 26 7
 true 19 2
 false 128 0 
