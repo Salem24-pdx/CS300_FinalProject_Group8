@@ -158,14 +158,11 @@ wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 # Hero attributes
 #
 # binoculars indicates if the character can see 2 spaces
-#
-# ship lists instances which have already been purchased
 
 [hero]
 energy 100
 whiffles 1000
 binoculars yes
-ship 1 3
 x 65
 y 65
 
@@ -183,7 +180,7 @@ y 65
 #
 # Format:
 #
-#   "Tool Name" cost X-rating type x y purchased
+#   "Tool Name" cost X-rating type x y
 #
 # Reserved types:
 #
@@ -191,19 +188,22 @@ y 65
 #   1 - Ship
 #
 # tools with x y of -1 -1 could be used to put into player inventory
+# protip: to indicate a tool has been purchased, just set its cost to 0
 
 [tool]
-"Hi-Tech Tree-cuttin' Axe" 20 2 1 10 15 false
-"Bargain Basement Chain Saw" 30 3 1 15 10 false
-"Hammer" 10 2 2 15 15 false
-"Binoculars" 50 0 0 11 11 false
-"Ship" 100 0 1 12 12 false
+"Hi-Tech Tree-cuttin' Axe" 20 2 1 10 15
+"Bargain Basement Chain Saw" 30 3 1 15 10
+"Hammer" 10 2 2 15 15
+"Binoculars" 50 0 0 11 11
+"Ship" 100 0 1 12 12
 
 # Obstacles and their locations
 #
 # Format:
 #
-#   "Obstacle Name" cost class x y 
+#   "Obstacle Name" cost type x y
+#
+# type matches with tool type for obsticle/tool pairing 
 
 [obstacle]
 "Large Tree" 40 1 5 5
