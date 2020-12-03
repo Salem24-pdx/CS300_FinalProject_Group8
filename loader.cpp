@@ -128,6 +128,8 @@ int loader::loadIn(const char* filename, Array* map) {
 							}
 							if (terrain) {
 								map->place_terrain(mapLine, x, terrain);
+printf("Terrain to place_terrain(%i, %i): %i\n", x, mapLine, terrain);
+//printf("Terrain from get_ ** no getter function for terrain yet
 //printf("%c", c);
 							}
 						}
