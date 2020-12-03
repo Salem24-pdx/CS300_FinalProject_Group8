@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <cctype>
+#include "common.h"
 
 using namespace std;
 struct tool{	//Tool data type
@@ -38,7 +39,7 @@ class player
 
 		int displayTools(); //Wrappers for the linked list
 
-		int addTool(tool & to_add);
+		int addTool(Tool * to_add);
 
 		int retrieve(int check);
 		
@@ -49,7 +50,7 @@ class player
 		int ship;
 		int bino;
 		node * head;
-		int addTool(node * & head, tool & to_add);	//Linked list recursive functions
+		int addTool(node * & head, Tool * to_add);	//Linked list recursive functions
 		int displayTools(node * head);
 		int retrieve(node * head,  int check);
 		int remove (node *  & head, string item);

@@ -117,7 +117,7 @@ int screen::resize() {
 	wresize(topMargin, 1, menuWidth);
 
 	int m = wresize(menu, lines-6 - 1, menuWidth - 1);
-    int bm = wresize(bot_menu, 6, menuWidth - 1);
+    	int bm = wresize(bot_menu, 6, menuWidth - 1);
 
         int md = mvwin(divider, 0, viewPortWidth);
 	mvwin(topMargin, 0, viewPortWidth + 1);
@@ -228,7 +228,7 @@ int screen::init()
 {
 	int v = wclear(viewPort);
 	int w = wclear(menu);
-    int bm = wclear(bot_menu);
+    	int bm = wclear(bot_menu);
 
 	if (v == ERR || w == ERR) {
 		return ERR;
@@ -250,7 +250,7 @@ int screen::refreshWin()
 {
 
 	int m = wnoutrefresh(menu);
-    int bm = wnoutrefresh(bot_menu);
+    	int bm = wnoutrefresh(bot_menu);
 	wnoutrefresh(topMargin);
 
 	//// maintain margin between hero and edge

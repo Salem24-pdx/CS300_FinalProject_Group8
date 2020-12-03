@@ -71,4 +71,4 @@ const char *wchar = WH.c_str();
 		}
 		s.refreshWin();
 	}
-ear
+}

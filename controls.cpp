@@ -31,8 +31,11 @@ void remove_whiffles(int & whiffles, int to_remove)
 
 game_logic::game_logic()
 {
-	cur_x = 0;
-	cur_y = 0;
+	cur_x = 63;
+	cur_y = 63;
+	string filename = "savefile.dat";
+	Array * ptrMap = &map;
+	l.loadIn(filename.c_str(),ptrMap);
 }
 
 game_logic::~game_logic()
@@ -73,9 +76,31 @@ void game_logic::move(int ch)
 {
 	int tile_check;
 	//char item_check = 'a';
+	//Displays map around in 1 cycle
+	s.put(cur_x,cur_y,map.get_terrain(cur_x,cur_y));
+	s.put(cur_x+1,cur_y,map.get_terrain(cur_x+1,cur_y));
+	s.put(cur_x-1,cur_y,map.get_terrain(cur_x-1,cur_y));
+	s.put(cur_x,cur_y+1,map.get_terrain(cur_x,cur_y+1));
+	s.put(cur_x+1,cur_y+1,map.get_terrain(cur_x+1,cur_y+1));
+	s.put(cur_x-1,cur_y+1,map.get_terrain(cur_x-1,cur_y+1));
+	s.put(cur_x,cur_y-1,map.get_terrain(cur_x,cur_y-1));
+	s.put(cur_x+1,cur_y-1,map.get_terrain(cur_x+1,cur_y-1));
+	s.put(cur_x-1,cur_y-1,map.get_terrain(cur_x-1,cur_y-1));
+
+	//Displays bottom menu
+	string ENE = "Energy: " + to_string(hero.getEnergy());
+	const char *echar = ENE.c_str();
+
+	string WH = "Whiffles: " + to_string(hero.getWhiffles());
+	const char *wchar = WH.c_str();
+
+	s.printtobot(1, wchar);
+	s.printtobot(2, echar);
+
 
 	//checks to see what the next tile is
 	tile_check = check_next(ch);
+
 	if(tile_check == WALL)
 	{
 		hero.loseEnergy(1);
@@ -128,14 +153,14 @@ void game_logic::move(int ch)
 	{
 		open_chest();
 	}
-	if(map.get_ship(cur_y, cur_x))
+	/*if(map.get_ship(cur_y, cur_x))
 	{
 		buy_ship();
 	}
 	if(map.get_binoculars(cur_y, cur_x))
 	{
 		buy_binoculars();
-	}
+	}*/				//No map get ship or get binoculars yet
 	if(map.get_clue(cur_y, cur_x))
 	{
 		display_clue();

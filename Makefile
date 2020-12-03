@@ -1,8 +1,8 @@
 CPP = g++
-CPPFLAGS = -Wall -g -Werror
+CPPFLAGS = -g -Wall -Werror
 
 frupal: frupal.cpp
-	$(CPP) $(CPPFLAGS) -o frupal player.cpp frupal.cpp -lncurses
+	$(CPP) $(CPPFLAGS) -o frupal array.cpp controls.cpp screen.cpp player.cpp loader.cpp frupal.cpp  -lncurses
 
 clean:
 	-rm -f frupal

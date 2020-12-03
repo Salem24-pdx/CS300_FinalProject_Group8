@@ -82,18 +82,18 @@ int player::displayTools(node * head)	//Function to display all items in players
 	cout<<head->data.name<<endl;
 	return	displayTools(head->next);
 }
-int player::addTool(tool & to_add)
+int player::addTool(Tool * to_add)
 {
 	return	addTool(head,to_add);
 }
-int player::addTool(node * & head,tool & to_add)	//Function to add a tool that meets all critera 
+int player::addTool(node * & head,Tool * to_add)	//Function to add a tool that meets all critera 
 {
 	if(!head)
 	{
 		node * temp = new node;
-		temp->data.name = to_add.name;
-		temp->data.type = to_add.type;
-		temp->data.energyDiv = to_add.energyDiv;
+		temp->data.name = to_add->name;
+		temp->data.type = to_add->type;
+		temp->data.energyDiv = to_add->energyDiv;
 		temp->next=NULL;
 		head = temp;
 		return 1;
