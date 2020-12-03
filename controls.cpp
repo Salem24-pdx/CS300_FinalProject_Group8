@@ -139,6 +139,8 @@ void game_logic::move(int ch)
 	
 	if(map.get_food(cur_y, cur_x))
 	{
+		char temp =  (map.get_food(cur_y,cur_x) -> name).at(0);
+		s.put(cur_y,cur_x,temp);
 		buy_food();
 	}
 	if(map.get_tool(cur_y, cur_x))

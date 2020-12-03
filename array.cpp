@@ -41,8 +41,8 @@ Array::~Array()
 			if(array[i][j].tile -> name != NULL)
 				delete array[i][j].tile -> name;
 		}*/	
-	delete [] array;
-	delete array;
+	//delete [] array;
+	//delete array;
 }
 
 //getters
@@ -184,7 +184,7 @@ bool Array::remove_stuff(int row, int col)
 	array[row][col].tool = NULL;
 	array[row][col].chest = 0;
 
-/*
+
 	if(array[row][col].food != NULL)
 	{
 		delete array[row][col].food;
@@ -206,7 +206,7 @@ bool Array::remove_stuff(int row, int col)
 		return true;
 	}
 	//Does tile need to be removed?
-*/
+
 	/*
 	else if(array[row][col].binocular == true)
 	{
