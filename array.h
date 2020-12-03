@@ -1,3 +1,10 @@
+// these two lines and the one at the end keep array.h
+// from being declared multiple times
+// because it is included from different files
+
+#ifndef ARRAY_H
+#define ARRAY_H
+
 /*
  * CS300 Frupal project: array.cpp
  * Jiawei Liu 2020
@@ -56,9 +63,4 @@ class Array
 };
 
 
-
-
-
-
-
-
+#endif /* ARRAY_H */
