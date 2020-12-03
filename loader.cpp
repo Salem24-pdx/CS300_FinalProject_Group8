@@ -3,6 +3,7 @@
 
 #include "loader.h"
 #include "common.h"
+//#include "array.h"
 
 #include <string>
 #include <fstream>
@@ -28,7 +29,7 @@ loader::~loader() {
 	}
 }
 
-int loader::loadIn(const char* filename) {
+int loader::loadIn(const char* filename, Array* map) {
 
 	ifstream infile(filename);
 	string line;
@@ -100,7 +101,7 @@ int loader::loadIn(const char* filename) {
 			case LMAP :
 				{
 					if (word.length() == 128) {
-printf("%i:", mapLine);
+//printf("%i:", mapLine);
 						for (int x = 0; x < 128; ++x) {
 							char c = word.at(x);
 							int terrain = 0;
@@ -126,12 +127,12 @@ printf("%i:", mapLine);
 									break;
 							}
 							if (terrain) {
-// TODO								Array::set_terrain(mapLine, x, terrain);
-printf("%c", c);
+								map->place_terrain(mapLine, x, terrain);
+//printf("%c", c);
 							}
 						}
 					++mapLine;
-printf("\n");
+//printf("\n");
 					}
 				}
 				break;
@@ -165,8 +166,9 @@ printf("\n");
 
 					foods.push_back(thisThing);
 
-// TODO					Array::set_food(y, x, thisThing);
-printf("%s\n%i\n%i\n%i\n%i\n\n",thisThing->name.c_str(), thisThing->cost, thisThing->energy, x, y);
+					map->set_food(y, x, thisThing);
+printf("Pointer to set_food(%i, %i): %p.\n", x, y, thisThing);
+printf("Pointer from get_food(): %p.\n\n", map->get_food(y, x));
 				}
 				break;
 			case LTOOL :
@@ -196,8 +198,9 @@ printf("%s\n%i\n%i\n%i\n%i\n\n",thisThing->name.c_str(), thisThing->cost, thisTh
 
 					tools.push_back(thisThing);
 
-// TODO					Array::set_tool(y, x, thisThing);
-printf("%s\n%i\n%i\n%i\n%i\n%i\n\n", thisThing->name.c_str(), thisThing->cost, thisThing->energyDiv, thisThing->type, x, y);
+					map->set_tool(y, x, thisThing);
+printf("Pointer to set_tool(%i, %i): %p.\n", x, y, thisThing);
+printf("Pointer from get_tool(): %p.\n\n", map->get_tool(y, x));
 				}
 				break;
 			case LOBSTACLE :
@@ -227,8 +230,9 @@ printf("%s\n%i\n%i\n%i\n%i\n%i\n\n", thisThing->name.c_str(), thisThing->cost, t
 
                                         obstacles.push_back(thisThing);
 
-// TODO                                 Array::set_tool(y, x, thisThing);
-printf("%s\n%i\n%i\n%i\n%i\n\n", thisThing->name.c_str(), thisThing->cost, thisThing->type, x, y);
+	                                map->set_obstacle(y, x, thisThing);
+printf("Pointer to set_obstacle(%i, %i): %p.\n", x, y, thisThing);
+printf("Pointer from get_obstacle(): %p.\n\n", map->get_obstacle(y, x));
                                 }
 				break;
 			case LCLUE :
@@ -242,8 +246,9 @@ printf("%s\n%i\n%i\n%i\n%i\n\n", thisThing->name.c_str(), thisThing->cost, thisT
 					int x, y;
 					s >> x >> y;
 
-// TODO					Array::set_clue(y, x, clueBool);
-printf("%s\n%i\n%i\n%i\n\n", word.c_str(), clueBool, x, y);
+					map->set_clue(y, x, clueBool);
+printf("Bool to set_clue(%i, %i): %s\n", x, y, word.c_str());
+printf("Bool from get_clue(%i, %i): %i\n", x, y, map->get_clue(y, x));
 				}
 				break;
 			case LCHEST :
@@ -253,8 +258,9 @@ printf("%s\n%i\n%i\n%i\n\n", word.c_str(), clueBool, x, y);
 					int x, y;
 					s >> chaChing >> x >> y;
 
-// TODO					Array::set_chest(y, x, chaChing);
-printf("chest\n%i\n%i\n%i\n\n", chaChing, x, y);
+					map->set_chest(y, x, chaChing);
+printf("Whiffles to set_chest(%i, %i): %i\n", x, y, chaChing);
+printf("Whiffles from get_chest(%i, %i): %i\n\n", x, y, map->get_chest(y, x));
 				}
 					break;
 			default :

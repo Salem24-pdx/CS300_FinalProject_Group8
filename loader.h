@@ -2,6 +2,7 @@
 #define LOADER_H
 
 #include "common.h"
+#include "array.h"
 
 #include <string>
 #include <vector>
@@ -13,7 +14,7 @@ class loader
 	public:
 		loader();
 		~loader();
-		int loadIn(const char* filename);
+		int loadIn(const char* filename, Array* map);
 
 
 	private:
