@@ -28,6 +28,17 @@ void remove_whiffles(int & whiffles, int to_remove)
 }*/
 
 //Checks to see the next tile before the player moves there
+
+game_logic::game_logic()
+{
+	cur_x = 0;
+	cur_y = 0;
+}
+
+game_logic::~game_logic()
+{
+}
+
 int game_logic::check_next(int ch)
 {
 
