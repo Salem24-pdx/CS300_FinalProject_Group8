@@ -71,9 +71,13 @@ Tile *& Array::get_tile(int row, int col)
 	return array[row][col].tile;
 }
 
-char * Array::get_clue(int row, int col)
+bool Array::get_clue(int row, int col)
 {
 	return array[row][col].clue;
+}
+int Array::get_chest(int row, int col)
+{
+	return array[row][col].chest;
 }
 
 Cell & Array::get_terrain(int row, int col)
@@ -83,6 +87,8 @@ Cell & Array::get_terrain(int row, int col)
 //setters
 void Array::set_food(int row, int col, Food * obj)
 {
+	array[row][col].food = obj;
+	/*
 	if(array[row][col].food == NULL)			
 	{
 		array[row][col].food = new Food;
@@ -96,10 +102,13 @@ void Array::set_food(int row, int col, Food * obj)
 		array[row][col].food -> cost = obj -> cost;
 		array[row][col].food -> energy = obj -> energy;
 	}	
+	*/
 }
 
 void Array::set_obstacle(int row, int col, Obstacle * obj)
 {
+	array[row][col].obstacle = obj;
+	/*
 	if(array[row][col].obstacle == NULL)			
 	{
 		array[row][col].obstacle = new Obstacle;
@@ -113,9 +122,13 @@ void Array::set_obstacle(int row, int col, Obstacle * obj)
 		array[row][col].obstacle -> cost = obj -> cost;
 		array[row][col].obstacle -> type = obj -> type;
 	}
+	*/
 }
 void Array::set_tool(int row, int col, Tool * obj)
 {
+	array[row][col].tool = obj;
+
+	/*
 	if(array[row][col].tool == NULL)			
 	{
 		array[row][col].tool = new Tool;
@@ -125,7 +138,16 @@ void Array::set_tool(int row, int col, Tool * obj)
 	array[row][col].tool -> type = obj -> type;
 	array[row][col].tool -> energyDiv = obj -> energyDiv;
 //	array[row][col].tool -> purchased = obj -> purchased;  ** set ->cost = 0 instead when bought
-	
+	*/	
+}
+
+void Array::set_clue(int row, int col, bool clue)
+{
+	array[row][col].clue = clue;
+}
+void Array::set_chest(int row, int col, int money)
+{
+	array[row][col].chest = money;
 }
 
 void Array::place_terrain(int row, int col, int type)
@@ -141,14 +163,13 @@ void Array::set_terrain(int row, int col, Cell * obj)
 	set_obstacle(row, col, obj -> obstacle);
 	set_tool(row, col, obj -> tool);
 	place_terrain(row, col, obj -> tile -> type);
-
-	array[row][col].clue = new char[strlen(obj -> clue) + 1];			
-	strcpy(array[row][col].clue, obj -> clue);
+	set_clue(row, col, obj -> clue);
+	set_chest(row, col, obj -> chest);
 	//array[row][col].diamond = obj -> diamond;
 	//array[row][col].ship = obj -> ship;
 	//array[row][col].binocular = obj -> binocular;
 }
-
+/*
 //check what's in a cell
 char Array::check_cell(int row, int col)
 {
@@ -159,21 +180,21 @@ char Array::check_cell(int row, int col)
 	else if(array[row][col].tool != NULL)
 		return TOOL;
 	else if(array[row][col].clue != NULL)
-	return CLUE;
+		return CLUE;
 	else if(array[row][col].chest != 0)
 		return CHEST;
 	//else if(array[row][col].diamond == true)
 		//return DIAMOND;
-	/*
+	
 	else if(array[row][col].ship == true)
 		return SHIP;		
 	else if(array[row][col].binocular == true)
 		return BINOCULARS;
-	*/
+	
 	else
 		return NONE;	
 }
-
+*/
 //remove tools, obstacle, food, chest, return true if success
 bool Array::remove_stuff(int row, int col)
 {

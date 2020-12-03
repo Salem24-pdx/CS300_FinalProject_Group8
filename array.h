@@ -13,7 +13,7 @@ struct Cell
 	Tool * tool;
 	Tile * tile;
 	
-	char * clue;			// the clue to the diamond
+	bool clue;			// the clue to the diamond
 	int chest;	
 	//bool diamond;
 	//bool ship;
@@ -32,8 +32,9 @@ class Array
 	Obstacle *& get_obstacle(int row, int col);
 	Tool *& get_tool(int row, int col);
 	Tile *& get_tile(int row, int col);
+	int get_chest(int row, int col);	
+	bool get_clue(int row, int col);
 
-	char * get_clue(int row, int col);
 	//get the data in a cell
 	Cell & get_terrain(int row, int col);
 
@@ -42,11 +43,12 @@ class Array
 	void set_obstacle(int row, int col, Obstacle *);
 	void set_tool(int row, int col, Tool *);
 	void place_terrain(int row, int col, int type);	
-
+	void set_chest(int row, int col, int money);
+	void set_clue(int row, int col, bool clue);
 	void set_terrain(int row, int col, Cell *);	
 	
 	//return a single character to check what in the cell
-	char check_cell(int row, int col);
+	//char check_cell(int row, int col);
 	//remove tools, obstacle, food, chest, return true if success
 	bool remove_stuff(int row, int col);
 	private:
