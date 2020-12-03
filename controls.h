@@ -1,16 +1,38 @@
 #include "common.h"
 #include "player.h"
 #include "array.h"
+#include "screen.h"
 
 //void add_energy(int & energy, int to_add);
 //void remove_energy(int & energy, int to_remove);
 //void add_whiffles(int & whiffles, int to_add);
 //void remove_whiffles(int & whiffles, int to_remove);
-int check_next(int ch, array & map, int y, int x, int ymax, int xmax);
-void move(int ch, player & hero, array & map, int & y, int & x, int ymax, int xmax);
-void buy_food(player & hero, array & map, int y, int x);
-void buy_tool(player & hero, array & map, int y, int x);
-void remove_obstacle(player & hero, array & map, int y, int x);
-void open_chest(player & hero, array & map, int y, int x);
+
+
+class game_logic
+{
+
+	public:
+		game_logic();
+		~game_logic();
+		int check_next(int ch);
+		void move(int ch);
+		void buy_food();
+		void buy_tool();
+		void remove_obstacle();
+		void open_chest();
+		void buy_ship();
+		void buy_binoculars();
+		void display_clue();
+
+
+
+	private:
+		player hero;
+		Array map;
+		screen s;
+		int cur_x;
+		int cur_y;
+};
 
 
