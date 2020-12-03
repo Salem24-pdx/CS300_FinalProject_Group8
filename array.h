@@ -1,10 +1,3 @@
-// these two lines and the one at the end keep array.h
-// from being declared multiple times
-// because it is included from different files
-
-#ifndef ARRAY_H
-#define ARRAY_H
-
 /*
  * CS300 Frupal project: array.cpp
  * Jiawei Liu 2020
@@ -21,6 +14,7 @@ struct Cell
 	Tile * tile;
 	
 	bool clue;			// the clue to the diamond
+	bool has_clue;
 	int chest;	
 	//bool diamond;
 	//bool ship;
@@ -40,10 +34,10 @@ class Array
 	Tool *& get_tool(int row, int col);
 	Tile *& get_tile(int row, int col);
 	int get_chest(int row, int col);	
-	bool get_clue(int row, int col);
-
+	bool get_clue(int row, int col); //return truthfulness
+	bool is_clue(int row, int col);
 	//get the data in a cell
-	Cell & get_terrain(int row, int col);
+	int get_terrain(int row, int col);
 
 	//setters
 	void set_food(int row, int col, Food *);
@@ -63,4 +57,9 @@ class Array
 };
 
 
-#endif /* ARRAY_H */
+
+
+
+
+
+

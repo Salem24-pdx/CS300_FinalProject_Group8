@@ -70,19 +70,24 @@ Tile *& Array::get_tile(int row, int col)
 {
 	return array[row][col].tile;
 }
-
+//return the truthfulness
 bool Array::get_clue(int row, int col)
 {
 	return array[row][col].clue;
 }
+bool Array::is_clue(int row, int col)
+{
+	return array[row][col].has_clue;
+}
+
 int Array::get_chest(int row, int col)
 {
 	return array[row][col].chest;
 }
 
-Cell & Array::get_terrain(int row, int col)
+int Array::get_terrain(int row, int col)
 {
-	return array[row][col];
+	return array[row][col].tile -> type;
 }
 //setters
 void Array::set_food(int row, int col, Food * obj)
@@ -144,6 +149,7 @@ void Array::set_tool(int row, int col, Tool * obj)
 void Array::set_clue(int row, int col, bool clue)
 {
 	array[row][col].clue = clue;
+	array[row][col].has_clue = true;
 }
 void Array::set_chest(int row, int col, int money)
 {
@@ -155,6 +161,7 @@ void Array::place_terrain(int row, int col, int type)
 	if(array[row][col].tile == NULL)
 		array[row][col].tile = new Tile;
 	array[row][col].tile -> type = type;
+
 }
 
 void Array::set_terrain(int row, int col, Cell * obj)
@@ -165,36 +172,9 @@ void Array::set_terrain(int row, int col, Cell * obj)
 	place_terrain(row, col, obj -> tile -> type);
 	set_clue(row, col, obj -> clue);
 	set_chest(row, col, obj -> chest);
-	//array[row][col].diamond = obj -> diamond;
-	//array[row][col].ship = obj -> ship;
-	//array[row][col].binocular = obj -> binocular;
 }
-/*
-//check what's in a cell
-char Array::check_cell(int row, int col)
-{
-	if(array[row][col].food != NULL)
-		return FOOD;
-	else if(array[row][col].obstacle != NULL)
-		return OBSTACLE;
-	else if(array[row][col].tool != NULL)
-		return TOOL;
-	else if(array[row][col].clue != NULL)
-		return CLUE;
-	else if(array[row][col].chest != 0)
-		return CHEST;
-	//else if(array[row][col].diamond == true)
-		//return DIAMOND;
-	
-	else if(array[row][col].ship == true)
-		return SHIP;		
-	else if(array[row][col].binocular == true)
-		return BINOCULARS;
-	
-	else
-		return NONE;	
-}
-*/
+
+
 //remove tools, obstacle, food, chest, return true if success
 bool Array::remove_stuff(int row, int col)
 {
