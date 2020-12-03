@@ -178,6 +178,13 @@ void Array::set_terrain(int row, int col, Cell * obj)
 //remove tools, obstacle, food, chest, return true if success
 bool Array::remove_stuff(int row, int col)
 {
+
+	array[row][col].food = NULL;
+	array[row][col].obstacle = NULL;
+	array[row][col].tool = NULL;
+	array[row][col].chest = 0;
+
+/*
 	if(array[row][col].food != NULL)
 	{
 		delete array[row][col].food;
@@ -199,6 +206,7 @@ bool Array::remove_stuff(int row, int col)
 		return true;
 	}
 	//Does tile need to be removed?
+*/
 	/*
 	else if(array[row][col].binocular == true)
 	{
