@@ -3,31 +3,7 @@
 #include "common.h"
 using namespace std;
 
-/*void add_energy(int & energy, int to_add)
-{
-	energy += to_add;
-	return;
-}
 
-void remove_energy(int & energy, int to_remove)
-{
-	energy -= to_remove;
-	return;
-}
-
-void add_whiffles(int & whiffles, int to_add)
-{
-	whiffles += to_add;
-	return;
-}
-
-void remove_whiffles(int & whiffles, int to_remove)
-{
-	whiffles -= to_remove;
-	return;
-}*/
-
-//Checks to see the next tile before the player moves there
 
 game_logic::game_logic()
 {
@@ -42,6 +18,7 @@ game_logic::~game_logic()
 {
 }
 
+//checks to see the next tile before the playere moves there
 int game_logic::check_next(int ch)
 {
 
@@ -50,19 +27,19 @@ int game_logic::check_next(int ch)
 	Tile * temp_tile = NULL;
 	
 
-	if(ch == KEY_UP && next_y > 0)
+	if(ch == 1 && next_y > 0)//check north
 	{
 		--next_y;
 	}
-	else if(ch == KEY_DOWN && next_y < 127)
+	else if(ch == 3 && next_y < 127)//check south
 	{
 		++next_y;
 	}
-	else if(ch == KEY_LEFT && next_x > 0)
+	else if(ch == 4 && next_x > 0)//check west
 	{
 		--next_x;
 	}
-	else if(ch == KEY_RIGHT && next_x < 127)
+	else if(ch == 2 && next_x < 127)//check east
 	{
 		++next_x;
 	}
@@ -116,19 +93,19 @@ void game_logic::move(int ch)
 	}
 
 	//moves the player to the next tile
-	if(ch == KEY_UP && cur_y > 0)
+	if(ch == 1 && cur_y > 0)//move north
 	{
 		--cur_y;
 	}
-	else if(ch == KEY_DOWN && cur_y < 127)
+	else if(ch == 3 && cur_y < 127)//move south
 	{
 		++cur_y;
 	}
-	else if(ch == KEY_LEFT && cur_x > 0)
+	else if(ch == 4 && cur_x > 0)//move west
 	{
 		--cur_x;
 	}
-	else if(ch == KEY_RIGHT && cur_x < 127)
+	else if(ch == 2 && cur_x < 127)//move east
 	{
 		++cur_x;
 	}
