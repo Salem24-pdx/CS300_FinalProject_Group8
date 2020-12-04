@@ -15,6 +15,7 @@ struct Cell
 	
 	bool clue;			// the clue to the diamond
 	bool has_clue;
+	bool seen;
 	int chest;	
 	//bool diamond;
 	//bool ship;
@@ -36,10 +37,12 @@ class Array
 	int get_chest(int row, int col);	
 	bool get_clue(int row, int col); //return truthfulness
 	bool is_clue(int row, int col);
+	bool is_seen(int row, int col);
 	//get the data in a cell
 	int get_terrain(int row, int col);
 
 	//setters
+	void set_seen(int row, int col, bool revealed);
 	void set_food(int row, int col, Food *);
 	void set_obstacle(int row, int col, Obstacle *);
 	void set_tool(int row, int col, Tool *);
