@@ -16,12 +16,18 @@ class loader
 		~loader();
 		int loadIn(const char* filename, Array* map);
 
+		int getHeroCol();
+		int getHeroLine();
 
 	private:
 
 	        vector<Food *> foods;
         	vector<Tool *> tools;
         	vector<Obstacle *> obstacles;
+
+		int heroX = 0;
+		int heroY = 0;
+
 
 };
 

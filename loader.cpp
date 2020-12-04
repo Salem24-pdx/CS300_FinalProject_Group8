@@ -128,8 +128,8 @@ int loader::loadIn(const char* filename, Array* map) {
 							}
 							if (terrain) {
 								map->place_terrain(mapLine, x, terrain);
-printf("Terrain to place_terrain(%i, %i): %i\n", x, mapLine, terrain);
-//printf("Terrain from get_ ** no getter function for terrain yet
+//printf("Terrain to place_terrain(%i, %i): %i\n", x, mapLine, terrain);
+//printf("Terrain from get_terrain(%i, %i): %i\n", x, mapLine, map->get_terrain(mapLine, x));
 //printf("%c", c);
 							}
 						}
@@ -139,7 +139,17 @@ printf("Terrain to place_terrain(%i, %i): %i\n", x, mapLine, terrain);
 				}
 				break;
 			case LHERO :
-				// reserved for "savegame" development
+					if (word.compare("X") == 0 || word.compare("x") == 0) {
+						s >> heroX;
+//printf("Hero column: %i\n", heroX);
+//printf("Get column from getHeroCol(): %i\n", getHeroCol());
+					} else {
+						if (word.compare("Y") == 0 || word.compare("y") == 0) {
+							s >> heroY;
+//printf("Hero line: %i\n", heroY);
+//printf("Get line from getHeroLine(): %i\n", getHeroLine());
+						}
+					}
 				break;
 			case LFOOD :
 				{
@@ -169,8 +179,8 @@ printf("Terrain to place_terrain(%i, %i): %i\n", x, mapLine, terrain);
 					foods.push_back(thisThing);
 
 					map->set_food(y, x, thisThing);
-printf("Pointer to set_food(%i, %i): %p.\n", x, y, thisThing);
-printf("Pointer from get_food(): %p.\n\n", map->get_food(y, x));
+//printf("Pointer to set_food(%i, %i): %p.\n", x, y, thisThing);
+//printf("Pointer from get_food(): %p.\n\n", map->get_food(y, x));
 				}
 				break;
 			case LTOOL :
@@ -201,8 +211,8 @@ printf("Pointer from get_food(): %p.\n\n", map->get_food(y, x));
 					tools.push_back(thisThing);
 
 					map->set_tool(y, x, thisThing);
-printf("Pointer to set_tool(%i, %i): %p.\n", x, y, thisThing);
-printf("Pointer from get_tool(): %p.\n\n", map->get_tool(y, x));
+//printf("Pointer to set_tool(%i, %i): %p.\n", x, y, thisThing);
+//printf("Pointer from get_tool(): %p.\n\n", map->get_tool(y, x));
 				}
 				break;
 			case LOBSTACLE :
@@ -233,8 +243,8 @@ printf("Pointer from get_tool(): %p.\n\n", map->get_tool(y, x));
                                         obstacles.push_back(thisThing);
 
 	                                map->set_obstacle(y, x, thisThing);
-printf("Pointer to set_obstacle(%i, %i): %p.\n", x, y, thisThing);
-printf("Pointer from get_obstacle(): %p.\n\n", map->get_obstacle(y, x));
+//printf("Pointer to set_obstacle(%i, %i): %p.\n", x, y, thisThing);
+//printf("Pointer from get_obstacle(): %p.\n\n", map->get_obstacle(y, x));
                                 }
 				break;
 			case LCLUE :
@@ -249,8 +259,8 @@ printf("Pointer from get_obstacle(): %p.\n\n", map->get_obstacle(y, x));
 					s >> x >> y;
 
 					map->set_clue(y, x, clueBool);
-printf("Bool to set_clue(%i, %i): %s\n", x, y, word.c_str());
-printf("Bool from get_clue(%i, %i): %i\n", x, y, map->get_clue(y, x));
+//printf("Bool to set_clue(%i, %i): %s\n", x, y, word.c_str());
+//printf("Bool from get_clue(%i, %i): %i\n", x, y, map->get_clue(y, x));
 				}
 				break;
 			case LCHEST :
@@ -261,8 +271,8 @@ printf("Bool from get_clue(%i, %i): %i\n", x, y, map->get_clue(y, x));
 					s >> chaChing >> x >> y;
 
 					map->set_chest(y, x, chaChing);
-printf("Whiffles to set_chest(%i, %i): %i\n", x, y, chaChing);
-printf("Whiffles from get_chest(%i, %i): %i\n\n", x, y, map->get_chest(y, x));
+//printf("Whiffles to set_chest(%i, %i): %i\n", x, y, chaChing);
+//printf("Whiffles from get_chest(%i, %i): %i\n\n", x, y, map->get_chest(y, x));
 				}
 					break;
 			default :
@@ -277,3 +287,10 @@ printf("Whiffles from get_chest(%i, %i): %i\n\n", x, y, map->get_chest(y, x));
 
 }
 
+int loader::getHeroCol() {
+	return heroX;
+}
+
+int loader::getHeroLine() {
+	return heroY;
+}
