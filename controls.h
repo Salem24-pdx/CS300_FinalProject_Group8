@@ -4,10 +4,6 @@
 #include "screen.h"
 #include "loader.h"
 
-//void add_energy(int & energy, int to_add);
-//void remove_energy(int & energy, int to_remove);
-//void add_whiffles(int & whiffles, int to_add);
-//void remove_whiffles(int & whiffles, int to_remove);
 
 
 class game_logic
