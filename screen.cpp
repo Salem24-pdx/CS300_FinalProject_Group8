@@ -162,6 +162,9 @@ int screen::put(int x, int y, char item)
 	// extract terrain
 	chtype terrain = mvwinch(viewPort, y, x) & A_COLOR;
 
+	if (item == ' ') {
+		return mvwdelch(viewPort, y, x);
+	}
 	// put terrain back with item
 	return mvwaddch(viewPort, y, x, (chtype) (item | terrain));
 }
