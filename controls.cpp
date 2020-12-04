@@ -51,6 +51,7 @@ int game_logic::check_next(int ch)
 //moves the player and performs various actions based on the cell
 void game_logic::move(int ch)
 {
+
 	int tile_check;
 	//char item_check = 'a';
 	//Displays map around in 1 cycle
@@ -119,6 +120,7 @@ void game_logic::move(int ch)
 		++cur_x;
 	}
 
+	
 	//checks to see what item is in a tile
 	//item_check = map.check_cell(y, x);
 
@@ -162,6 +164,8 @@ void game_logic::move(int ch)
 void game_logic::buy_food()
 {
 	Food * tile_food = map.get_food(cur_y, cur_x);
+	s.printtomenu("Food: " + tile_food->name + "\nCost: " + to_string(tile_food->cost) + "\nEnergy Gained: " + to_string(tile_food->energy));
+	
 	if(hero.getWhiffles() < tile_food->cost)
 	{
 		return;
@@ -179,6 +183,8 @@ void game_logic::buy_food()
 void game_logic::buy_tool()
 {
 	Tool * tile_tool = map.get_tool(cur_y, cur_x);
+	s.printtomenu("Tool: " + tile_tool->name + "\nCost: " + to_string(tile_tool->cost));
+
 	if(hero.getWhiffles() < tile_tool->cost)
 	{
 		return;
@@ -208,7 +214,7 @@ void game_logic::remove_obstacle()
 		hero.loseEnergy(tile_obstacle->cost/cost_divider);
 		if(tile_obstacle->type == 1)
 		{
-			hero.remove("PICK");
+			hero.remove("HAMMER");
 		}
 		if(tile_obstacle->type == 2)
 		{
