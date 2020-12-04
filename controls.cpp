@@ -27,19 +27,19 @@ int game_logic::check_next(int ch)
 	Tile * temp_tile = NULL;
 	
 
-	if(ch == 1 && next_y > 0)//check north
+	if(ch == '1' && next_y > 0)//check north
 	{
 		--next_y;
 	}
-	else if(ch == 3 && next_y < 127)//check south
+	else if(ch == '3' && next_y < 127)//check south
 	{
 		++next_y;
 	}
-	else if(ch == 4 && next_x > 0)//check west
+	else if(ch == '4' && next_x > 0)//check west
 	{
 		--next_x;
 	}
-	else if(ch == 2 && next_x < 127)//check east
+	else if(ch == '2' && next_x < 127)//check east
 	{
 		++next_x;
 	}
@@ -54,7 +54,7 @@ void game_logic::move(int ch)
 	int tile_check;
 	//char item_check = 'a';
 	//Displays map around in 1 cycle
-	s.put(cur_x,cur_y,map.get_terrain(cur_x,cur_y));
+/*	s.put(cur_x,cur_y,map.get_terrain(cur_x,cur_y));
 	s.put(cur_x+1,cur_y,map.get_terrain(cur_x+1,cur_y));
 	s.put(cur_x-1,cur_y,map.get_terrain(cur_x-1,cur_y));
 	s.put(cur_x,cur_y+1,map.get_terrain(cur_x,cur_y+1));
@@ -62,13 +62,22 @@ void game_logic::move(int ch)
 	s.put(cur_x-1,cur_y+1,map.get_terrain(cur_x-1,cur_y+1));
 	s.put(cur_x,cur_y-1,map.get_terrain(cur_x,cur_y-1));
 	s.put(cur_x+1,cur_y-1,map.get_terrain(cur_x+1,cur_y-1));
-	s.put(cur_x-1,cur_y-1,map.get_terrain(cur_x-1,cur_y-1));
+	s.put(cur_x-1,cur_y-1,map.get_terrain(cur_x-1,cur_y-1));*/
+	//s.put(cur_x,cur_y,HEROCHAR,HERO);
+	for (int i = -1;i<2;++i)
+		for (int z = -1; z<2;++z)
+		{
+		s.put(cur_x+i,cur_y+z,map.get_terrain(cur_y+i,cur_x+z));
+		if(map.get_food(cur_x+i, cur_y+z))
+			s.put(cur_x+i,cur_y+z,'F');
+		}
+
 
 	//Displays bottom menu
-	string ENE = "Energy: " + to_string(hero.getEnergy());
+	string ENE = "Energy: " + to_string(hero.getEnergy()) + " ";
 	const char *echar = ENE.c_str();
 
-	string WH = "Whiffles: " + to_string(hero.getWhiffles());
+	string WH = "Whiffles: " + to_string(hero.getWhiffles()) + " ";
 	const char *wchar = WH.c_str();
 
 	s.printtobot(1, wchar);
@@ -93,19 +102,19 @@ void game_logic::move(int ch)
 	}
 
 	//moves the player to the next tile
-	if(ch == 1 && cur_y > 0)//move north
+	if(ch == '1' && cur_y > 1)//move north
 	{
 		--cur_y;
 	}
-	else if(ch == 3 && cur_y < 127)//move south
+	else if(ch == '3' && cur_y < 126)//move south
 	{
 		++cur_y;
 	}
-	else if(ch == 4 && cur_x > 0)//move west
+	else if(ch == '4' && cur_x > 1)//move west
 	{
 		--cur_x;
 	}
-	else if(ch == 2 && cur_x < 127)//move east
+	else if(ch == '2' && cur_x < 126)//move east
 	{
 		++cur_x;
 	}
@@ -114,10 +123,10 @@ void game_logic::move(int ch)
 	//item_check = map.check_cell(y, x);
 
 	
+	
+
 	if(map.get_food(cur_y, cur_x))
 	{
-		char temp =  (map.get_food(cur_y,cur_x) -> name).at(0);
-		s.put(cur_y,cur_x,temp);
 		buy_food();
 	}
 	if(map.get_tool(cur_y, cur_x))

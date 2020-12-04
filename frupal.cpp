@@ -32,16 +32,28 @@ int main()
 		game.s.refreshWin();
 		key = game.s.getKey();
 		//game.check_next(key);
-		if (key == KEY_UP)
+		if (key == '1')
+		{
 			game.s.moveCursor(NORTH);
-		if (key == KEY_DOWN)
+			game.move(key);
+		}
+		if (key == '3')
+		{
 			game.s.moveCursor(SOUTH);
-	       	if (key == KEY_LEFT)
+			game.move(key);
+		}
+	       	if (key == '4')
+		{
 			game.s.moveCursor(WEST);
-		if (key == KEY_RIGHT)
-			game.s.moveCursor(EAST);
+			game.move(key);
+		}
 
-		game.move(key);
+		if (key == '2')
+		{
+			game.s.moveCursor(EAST);
+			game.move(key);
+		}
+
 	}
 	
 
