@@ -47,6 +47,11 @@ Array::~Array()
 
 //getters
 
+bool Array::is_seen(int row, int col)
+{
+	return array[row][col].seen;
+}
+
 //return food obj in cell
 Food *& Array::get_food(int row, int col)
 {
@@ -90,6 +95,12 @@ int Array::get_terrain(int row, int col)
 	return array[row][col].tile -> type;
 }
 //setters
+
+void Array::set_seen(int row, int col, bool revealed)
+{
+	array[row][col].seen = revealed;
+}
+
 void Array::set_food(int row, int col, Food * obj)
 {
 	array[row][col].food = obj;
