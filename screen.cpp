@@ -117,7 +117,7 @@ int screen::resize() {
 	wresize(topMargin, 1, menuWidth);
 
 	int m = wresize(menu, lines-6 - 1, menuWidth - 1);
-    	//int bm = wresize(bot_menu, 6, menuWidth - 1);	//ERROR says its unused
+    	int bm = wresize(bot_menu, 6, menuWidth - 1);	//ERROR says its unused
 
         int md = mvwin(divider, 0, viewPortWidth);
 	mvwin(topMargin, 0, viewPortWidth + 1);
@@ -132,7 +132,7 @@ int screen::resize() {
 
 	int r = screen::refreshWin();
 
-        if (d == ERR || m == ERR || r == ERR || md == ERR || mm == ERR || mbm == ERR) {
+        if (d == ERR || m == ERR || r == ERR || md == ERR || mm == ERR || mbm == ERR || bm == ERR) {
                 return ERR;
         }
         return OK;
@@ -231,9 +231,9 @@ int screen::init()
 {
 	int v = wclear(viewPort);
 	int w = wclear(menu);
-    	//int bm = wclear(bot_menu);	ERROR says its unused
+    	int bm = wclear(bot_menu);
 
-	if (v == ERR || w == ERR) {
+	if (v == ERR || w == ERR || bm == ERR) {
 		return ERR;
 	}
 
@@ -253,7 +253,7 @@ int screen::refreshWin()
 {
 
 	int m = wnoutrefresh(menu);
-    	//int bm = wnoutrefresh(bot_menu); ERROR says its unused
+    	int bm = wnoutrefresh(bot_menu);
 	wnoutrefresh(topMargin);
 
 	//// maintain margin between hero and edge
@@ -302,7 +302,7 @@ int screen::refreshWin()
 
 	doupdate();
 
-	if (ERR == v || ERR == m)
+	if (ERR == v || ERR == m || ERR == bm)
 	{
 		return ERR;
 	}
