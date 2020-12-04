@@ -68,7 +68,7 @@ void game_logic::move(int ch)
 		for (int z = -1; z<2;++z)
 		{
 		s.put(cur_x+i,cur_y+z,map.get_terrain(cur_y+i,cur_x+z));
-		if(map.get_food(cur_x+i, cur_y+z))
+		if(map.get_food(cur_y+z, cur_x+i))
 			s.put(cur_x+i,cur_y+z,'F');
 		}
 
@@ -128,6 +128,7 @@ void game_logic::move(int ch)
 	if(map.get_food(cur_y, cur_x))
 	{
 		buy_food();
+		//s.put(cur_x,cur_y,map.get_terrain(cur_y,cur_x),NONE);
 	}
 	if(map.get_tool(cur_y, cur_x))
 	{
