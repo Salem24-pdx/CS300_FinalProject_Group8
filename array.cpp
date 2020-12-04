@@ -92,7 +92,8 @@ int Array::get_chest(int row, int col)
 
 int Array::get_terrain(int row, int col)
 {
-	return array[row][col].tile -> type;
+	//return array[row][col].tile -> type;
+	return array[row][col].terrain;
 }
 //setters
 
@@ -172,7 +173,7 @@ void Array::place_terrain(int row, int col, int type)
 	if(array[row][col].tile == NULL)
 		array[row][col].tile = new Tile;
 	array[row][col].tile -> type = type;
-
+	array[row][col].terrain = type;
 }
 
 void Array::set_terrain(int row, int col, Cell * obj)

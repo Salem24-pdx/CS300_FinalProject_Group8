@@ -17,6 +17,7 @@ struct Cell
 	bool has_clue;
 	bool seen;
 	int chest;	
+	int terrain;
 	//bool diamond;
 	//bool ship;
 	//bool binocular;
