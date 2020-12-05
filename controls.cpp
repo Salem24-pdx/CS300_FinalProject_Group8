@@ -74,7 +74,7 @@ void game_logic::move(int ch)
 		}
 */
 
-	look(cur_y, cur_x);
+/*	look(cur_y, cur_x);
 
 	//Displays bottom menu
 	string ENE = "Energy: " + to_string(hero.getEnergy()) + " ";
@@ -85,7 +85,7 @@ void game_logic::move(int ch)
 
 	s.printtobot(1, wchar);
 	s.printtobot(2, echar);
-
+*/
 
 	//checks to see what the next tile is
 	tile_check = check_next(ch);
@@ -126,6 +126,17 @@ void game_logic::move(int ch)
 	//checks to see what item is in a tile
 	//item_check = map.check_cell(y, x);
 
+        look(cur_y, cur_x);
+
+        //Displays bottom menu
+        string ENE = "Energy: " + to_string(hero.getEnergy()) + " ";
+        const char *echar = ENE.c_str();
+
+        string WH = "Whiffles: " + to_string(hero.getWhiffles()) + " ";
+        const char *wchar = WH.c_str();
+
+        s.printtobot(1, wchar);
+        s.printtobot(2, echar);
 	
 	
 
