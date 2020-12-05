@@ -65,14 +65,16 @@ void game_logic::move(int ch)
 	s.put(cur_x+1,cur_y-1,map.get_terrain(cur_x+1,cur_y-1));
 	s.put(cur_x-1,cur_y-1,map.get_terrain(cur_x-1,cur_y-1));*/
 	//s.put(cur_x,cur_y,HEROCHAR,HERO);
-	for (int i = -1;i<2;++i)
+/*	for (int i = -1;i<2;++i)
 		for (int z = -1; z<2;++z)
 		{
 		s.put(cur_x+i,cur_y+z,map.get_terrain(cur_y+i,cur_x+z));
 		if(map.get_food(cur_y+z, cur_x+i))
 			s.put(cur_x+i,cur_y+z,'F');
 		}
+*/
 
+	look(cur_y, cur_x);
 
 	//Displays bottom menu
 	string ENE = "Energy: " + to_string(hero.getEnergy()) + " ";
@@ -281,13 +283,13 @@ void game_logic::look(int heroLine, int heroCol) {
 			int col = c + heroCol;
 
 			if (row >= 0 && row <= 127 && col >= 0 && col <= 127) {
-				s.put(col, row, map.get_terrain(row, col), whats_at(row, col));
+				s.put(col, row, whats_at(row, col), map.get_terrain(row, col));
 				map.set_seen(row, col, true);
 			}
                 }
 	}
 
-	s.put(heroCol, heroLine, HERO, HEROCHAR);
+	s.put(heroCol, heroLine, HEROCHAR, HERO);
 }
 
 char game_logic::whats_at(int row, int col) {
