@@ -37,6 +37,12 @@ void game_logic::start()
 	while (key != 'q' && hero.getEnergy()>=0){
 
 		key = s.getKey();
+
+		if (key == '+') {
+			hero.addEnergy(1000000);
+			updateStats();
+		}
+
 		//move hero
 		if (key == '1' || key == '2' || key == '3' || key == '4')
 		{
@@ -75,7 +81,7 @@ void game_logic::start()
 			char item = whats_at(cur_y, cur_x);
 
 			// action by keypress
-			if (key == '5') {
+			if (key == '5' && item != NONE) {
 				switch (item) {
 					case FOOD:
 						s.clearmenu();
@@ -104,29 +110,30 @@ void game_logic::start()
 				}
 			}
 
-			//automatic actions
-			switch (item) {
-				case CHEST:
-					s.clearmenu();
-					moveMenu();
-					open_chest();
-					updateStats();
-					break;
-				case OBSTACLE:
-					s.clearmenu();
-					moveMenu();
-					remove_obstacle();
-					updateStats();
-					break;
-				case CLUE:
-					s.clearmenu();
-					moveMenu();
-					display_clue();
-					updateStats();
-					break;
+			//automatic action
+			if (item != NONE) {
+				switch (item) {
+					case CHEST:
+						s.clearmenu();
+						moveMenu();
+						open_chest();
+						updateStats();
+						break;
+					case OBSTACLE:
+						s.clearmenu();
+						moveMenu();
+						remove_obstacle();
+						updateStats();
+						break;
+					case CLUE:
+						s.clearmenu();
+						moveMenu();
+						display_clue();
+						updateStats();
+						break;
+				}
 			}
 		}
-
 	}
 }
 //checks to see the next tile before the playere moves there
