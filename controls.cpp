@@ -71,7 +71,7 @@ void game_logic::start()
                 }
 
 		// actions
-		if ((s.getCursorY() == cur_y) && (s.getCursorX() == cur_x) && key == '5') {
+		if ((s.getCursorY() == cur_y) && (s.getCursorX() == cur_x)) {
 			char item = whats_at(cur_y, cur_x);
 
 			// action by keypress
