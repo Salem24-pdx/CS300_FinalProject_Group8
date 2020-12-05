@@ -18,6 +18,41 @@ game_logic::~game_logic()
 {
 }
 
+void game_logic::start()
+{
+	s.init();
+	s.putCursor(63,63);
+	s.center(63,63);
+	s.refreshWin();
+	int key = 0;
+	while (key != 'q'){
+		s.refreshWin();
+		key = s.getKey();
+		//game.check_next(key);
+		if (key == '1')
+		{
+			s.moveCursor(NORTH);
+			move(key);
+		}
+		if (key == '3')
+		{
+			s.moveCursor(SOUTH);
+			move(key);
+		}
+	       	if (key == '4')
+		{
+			s.moveCursor(WEST);
+			move(key);
+		}
+
+		if (key == '2')
+		{
+			s.moveCursor(EAST);
+			move(key);
+		}
+
+	}
+}
 //checks to see the next tile before the playere moves there
 int game_logic::check_next(int ch)
 {

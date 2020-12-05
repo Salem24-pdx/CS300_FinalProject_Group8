@@ -23,39 +23,7 @@ int main()
 	cout<<(test.retrieve(2));
 	//test.displayTools(); //Some testing i did to make sure functions worked as intended for player class */
 	game_logic game;
-	game.s.init();
-	game.s.putCursor(63,63);
-	game.s.center(63,63);
-	game.s.refreshWin();
-	int key = 0;
-	while (key != 'q'){
-		game.s.refreshWin();
-		key = game.s.getKey();
-		//game.check_next(key);
-		if (key == '1')
-		{
-			game.s.moveCursor(NORTH);
-			game.move(key);
-		}
-		if (key == '3')
-		{
-			game.s.moveCursor(SOUTH);
-			game.move(key);
-		}
-	       	if (key == '4')
-		{
-			game.s.moveCursor(WEST);
-			game.move(key);
-		}
-
-		if (key == '2')
-		{
-			game.s.moveCursor(EAST);
-			game.move(key);
-		}
-
-	}
-	
+	game.start();
 
 
 	return 0;

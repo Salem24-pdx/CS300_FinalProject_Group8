@@ -21,14 +21,16 @@ class game_logic
 		void buy_ship();
 		void buy_binoculars();
 		void display_clue();
+		void start();
 
-		screen s;
+		
 
 
 
 	private:
 		player hero;
 		Array map;
+		screen s;
 		loader l;
 		int cur_x;
 		int cur_y;
