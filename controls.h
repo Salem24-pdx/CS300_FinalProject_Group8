@@ -32,6 +32,9 @@ class game_logic
 		loader l;
 		int cur_x;
 		int cur_y;
+
+		void look(int heroLine, int heroCol);
+		char whats_at(int row, int col);
 };
 
 

@@ -270,3 +270,57 @@ void game_logic::buy_binoculars()
 void game_logic::display_clue()
 {
 }
+
+void game_logic::look(int heroLine, int heroCol) {
+	int range = 1 + hero.getBino();
+
+        for (int c = -1 * range; c <= range; ++c) {
+                for (int l = -1 * range; l <= range; ++l)
+                {
+			int row = l + heroLine;
+			int col = c + heroCol;
+
+			if (row >= 0 && row <= 127 && col >= 0 && col <= 127) {
+				s.put(col, row, map.get_terrain(row, col), whats_at(row, col));
+				map.set_seen(row, col, true);
+			}
+                }
+	}
+
+	s.put(heroCol, heroLine, HERO, HEROCHAR);
+}
+
+char game_logic::whats_at(int row, int col) {
+
+        if (row < 0 || row > 127 || col < 0 || col > 127) {
+		return '\0';  // return null character if out of range
+	}
+
+	if (map.get_food(row, col)) {
+		return FOOD;
+	}
+
+	if (map.get_tool(row, col)) {
+		if (map.get_tool(row, col)->type == 1) {
+			return SHIP;
+		}
+		if (map.get_tool(row,col)->type == 0) {
+			return BINOCULARS;
+		}
+		return TOOL;
+	}
+
+	if (map.get_obstacle(row, col)) {
+		return OBSTACLE;
+	}
+
+	if (map.get_chest(row, col)) {
+		return CHEST;
+	}
+
+	if (map.is_clue(row, col)) {
+		return CLUE;
+	}
+
+	return NONE;
+}
