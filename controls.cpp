@@ -59,7 +59,7 @@ int game_logic::check_next(int ch)
 
 	int next_x = cur_x;
 	int next_y = cur_y;
-	Tile * temp_tile = NULL;
+//	Tile * temp_tile = NULL;
 	
 
 	if(ch == '1' && next_y > 0)//check north
@@ -79,8 +79,10 @@ int game_logic::check_next(int ch)
 		++next_x;
 	}
 
-	temp_tile = map.get_tile(next_y, next_x);
-	return temp_tile->type;
+//	temp_tile = map.get_tile(next_y, next_x);
+//	return temp_tile->type;
+
+	return map.get_terrain(next_y, next_x);
 }
 
 //moves the player and performs various actions based on the cell
