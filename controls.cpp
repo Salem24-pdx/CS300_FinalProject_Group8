@@ -7,11 +7,11 @@ using namespace std;
 
 game_logic::game_logic()
 {
-	cur_x = 63;
-	cur_y = 63;
 	string filename = "savefile.dat";
-	Array * ptrMap = &map;
-	l.loadIn(filename.c_str(),ptrMap);
+//	Array * ptrMap = &map;
+	l.loadIn(filename.c_str(), &map);
+	cur_x = l.getHeroCol();
+	cur_y = l.getHeroLine();
 }
 
 game_logic::~game_logic()
@@ -21,8 +21,8 @@ game_logic::~game_logic()
 void game_logic::start()
 {
 	s.init();
-	s.putCursor(63,63);
-	s.center(63,63);
+	s.putCursor(cur_x, cur_y);
+	s.center(cur_x, cur_y);
 	s.refreshWin();
 	int key = 0;
 	while (key != 'q' && hero.getEnergy()>=0){
