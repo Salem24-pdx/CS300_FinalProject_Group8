@@ -25,7 +25,7 @@ void game_logic::start()
 	s.center(63,63);
 	s.refreshWin();
 	int key = 0;
-	while (key != 'q'){
+	while (key != 'q' && hero.getEnergy()>=0){
 		s.refreshWin();
 		key = s.getKey();
 		//game.check_next(key);
@@ -169,6 +169,13 @@ void game_logic::move(int ch)
 
         string WH = "Whiffles: " + to_string(hero.getWhiffles()) + " ";
         const char *wchar = WH.c_str();
+	s.printtomenu(1, "Options");
+	s.printtomenu(2, "1) North");
+	s.printtomenu(3, "2) East");
+	s.printtomenu(4, "3) South");
+	s.printtomenu(5, "4) West");
+	for (int i = 6; i<14; ++i)
+		s.printtomenu(i, "                ");
 
         s.printtobot(1, wchar);
         s.printtobot(2, echar);
@@ -177,8 +184,42 @@ void game_logic::move(int ch)
 
 	if(map.get_food(cur_y, cur_x))
 	{
-		buy_food();
-		//s.put(cur_x,cur_y,map.get_terrain(cur_y,cur_x),NONE);
+		Food * tile_food = map.get_food(cur_y, cur_x);
+		string temp1 = ("Food : " +tile_food->name + " ");
+		const char *Temp1 =temp1.c_str();
+		string temp2 = ("Cost: " + to_string(tile_food->cost)+ " ");
+		const char *Temp2 =temp2.c_str();
+		string temp3 = ( "Energy Gained: " + to_string(tile_food->energy)+ " ");
+		const char *Temp3 =temp3.c_str();
+
+		s.printtomenu(6, " ");
+		s.printtomenu(7, "Item found!");
+		s.printtomenu(8, Temp1);
+		s.printtomenu(9, Temp2);
+		s.printtomenu(10, Temp3);
+		s.printtomenu(11, "5) Buy");
+		s.printtomenu(12, "6) Ignore");
+		s.refreshWin();
+		int key = 0;
+		while (true)
+		{
+		key = s.getKey();
+			if (key == '5')
+			{
+				buy_food();
+
+				for (int i = 6; i<14; ++i)
+					s.printtomenu(i, "                ");
+				s.printtomenu(11, "Item Purchased");
+				return;
+			}
+			else if (key == '6')
+			{
+				s.printtomenu(13, "Item Ignored");
+				return;
+			}
+
+		}
 	}
 	if(map.get_tool(cur_y, cur_x))
 	{
@@ -212,7 +253,7 @@ void game_logic::move(int ch)
 void game_logic::buy_food()
 {
 	Food * tile_food = map.get_food(cur_y, cur_x);
-	s.printtomenu("Food: " + tile_food->name + "\nCost: " + to_string(tile_food->cost) + "\nEnergy Gained: " + to_string(tile_food->energy));
+	//s.printtomenu("Food: " + tile_food->name + "\nCost: " + to_string(tile_food->cost) + "\nEnergy Gained: " + to_string(tile_food->energy));
 	
 	if(hero.getWhiffles() < tile_food->cost)
 	{
