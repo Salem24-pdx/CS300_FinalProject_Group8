@@ -21,34 +21,110 @@ game_logic::~game_logic()
 void game_logic::start()
 {
 	s.init();
+
+	// set up for first turn
 	s.putCursor(cur_x, cur_y);
 	s.center(cur_x, cur_y);
-	s.refreshWin();
+	look(cur_y, cur_x);
+	discover(cur_y, cur_x);
+	moveMenu();
+        if ((s.getCursorY() == cur_y) && (s.getCursorX() == cur_x)) {
+        	actionMenu();
+        }
+	updateStats();
+
 	int key = 0;
 	while (key != 'q' && hero.getEnergy()>=0){
-		s.refreshWin();
+
 		key = s.getKey();
-		//game.check_next(key);
-		if (key == '1')
+		//move hero
+		if (key == '1' || key == '2' || key == '3' || key == '4')
 		{
-			s.moveCursor(NORTH);
 			move(key);
-		}
-		if (key == '3')
-		{
-			s.moveCursor(SOUTH);
-			move(key);
-		}
-	       	if (key == '4')
-		{
-			s.moveCursor(WEST);
-			move(key);
+			look(cur_y, cur_x);
+			discover(cur_y, cur_x);
+			moveMenu();
+			actionMenu();
+			updateStats();
 		}
 
-		if (key == '2')
-		{
-			s.moveCursor(EAST);
-			move(key);
+		// move cursor
+                if (key == KEY_UP) {
+                        s.moveCursor(NORTH);
+			discover(s.getCursorY(), s.getCursorX());
+			moveMenu();
+                }
+                if (key == KEY_DOWN) {
+                        s.moveCursor(SOUTH);
+                        discover(s.getCursorY(), s.getCursorX());
+			moveMenu();
+                }
+                if (key == KEY_LEFT) {
+                        s.moveCursor(WEST);
+                        discover(s.getCursorY(), s.getCursorX());
+			moveMenu();
+                }
+                if (key == KEY_RIGHT) {
+                        s.moveCursor(EAST);
+                        discover(s.getCursorY(), s.getCursorX());
+			moveMenu();
+                }
+
+		// actions
+		if ((s.getCursorY() == cur_y) && (s.getCursorX() == cur_x) && key == '5') {
+			char item = whats_at(cur_y, cur_x);
+
+			// action by keypress
+			if (key == '5') {
+				switch (item) {
+					case FOOD:
+						s.clearmenu();
+						moveMenu();
+						buy_food();
+						updateStats();
+						break;
+					case SHIP:
+						s.clearmenu();
+						moveMenu();
+						buy_ship();
+						updateStats();
+						break;
+					case BINOCULARS:
+						s.clearmenu();
+						moveMenu();
+						buy_binoculars();
+						updateStats();
+						break;
+					case TOOL:
+						s.clearmenu();
+						moveMenu();
+						buy_tool();
+						updateStats();
+						break;
+				}
+			}
+
+			//automatic actions
+			switch (item) {
+				case CHEST:
+					s.clearmenu();
+					moveMenu();
+					open_chest();
+					updateStats();
+					break;
+				case OBSTACLE:
+					s.clearmenu();
+					moveMenu();
+					remove_obstacle();
+					updateStats();
+					break;
+				case CLUE:
+					s.clearmenu();
+					moveMenu();
+					display_clue();
+					updateStats();
+					break;
+			}
 		}
 
 	}
@@ -90,39 +166,7 @@ void game_logic::move(int ch)
 {
 
 	int tile_check;
-	//char item_check = 'a';
-	//Displays map around in 1 cycle
-/*	s.put(cur_x,cur_y,map.get_terrain(cur_x,cur_y));
-	s.put(cur_x+1,cur_y,map.get_terrain(cur_x+1,cur_y));
-	s.put(cur_x-1,cur_y,map.get_terrain(cur_x-1,cur_y));
-	s.put(cur_x,cur_y+1,map.get_terrain(cur_x,cur_y+1));
-	s.put(cur_x+1,cur_y+1,map.get_terrain(cur_x+1,cur_y+1));
-	s.put(cur_x-1,cur_y+1,map.get_terrain(cur_x-1,cur_y+1));
-	s.put(cur_x,cur_y-1,map.get_terrain(cur_x,cur_y-1));
-	s.put(cur_x+1,cur_y-1,map.get_terrain(cur_x+1,cur_y-1));
-	s.put(cur_x-1,cur_y-1,map.get_terrain(cur_x-1,cur_y-1));*/
-	//s.put(cur_x,cur_y,HEROCHAR,HERO);
-/*	for (int i = -1;i<2;++i)
-		for (int z = -1; z<2;++z)
-		{
-		s.put(cur_x+i,cur_y+z,map.get_terrain(cur_y+i,cur_x+z));
-		if(map.get_food(cur_y+z, cur_x+i))
-			s.put(cur_x+i,cur_y+z,'F');
-		}
-*/
 
-/*	look(cur_y, cur_x);
-
-	//Displays bottom menu
-	string ENE = "Energy: " + to_string(hero.getEnergy()) + " ";
-	const char *echar = ENE.c_str();
-
-	string WH = "Whiffles: " + to_string(hero.getWhiffles()) + " ";
-	const char *wchar = WH.c_str();
-
-	s.printtobot(1, wchar);
-	s.printtobot(2, echar);
-*/
 
 	//checks to see what the next tile is
 	tile_check = check_next(ch);
@@ -159,95 +203,6 @@ void game_logic::move(int ch)
 		++cur_x;
 	}
 
-	
-	//checks to see what item is in a tile
-	//item_check = map.check_cell(y, x);
-
-        look(cur_y, cur_x);
-
-        //Displays bottom menu
-        string ENE = "Energy: " + to_string(hero.getEnergy()) + " ";
-        const char *echar = ENE.c_str();
-
-        string WH = "Whiffles: " + to_string(hero.getWhiffles()) + " ";
-        const char *wchar = WH.c_str();
-	s.printtomenu(1, "Options");
-	s.printtomenu(2, "1) North");
-	s.printtomenu(3, "2) East");
-	s.printtomenu(4, "3) South");
-	s.printtomenu(5, "4) West");
-	for (int i = 6; i<14; ++i)
-		s.printtomenu(i, "                ");
-
-        s.printtobot(1, wchar);
-        s.printtobot(2, echar);
-	
-	
-
-	if(map.get_food(cur_y, cur_x))
-	{
-		Food * tile_food = map.get_food(cur_y, cur_x);
-		string temp1 = ("Food : " +tile_food->name + " ");
-		const char *Temp1 =temp1.c_str();
-		string temp2 = ("Cost: " + to_string(tile_food->cost)+ " ");
-		const char *Temp2 =temp2.c_str();
-		string temp3 = ( "Energy Gained: " + to_string(tile_food->energy)+ " ");
-		const char *Temp3 =temp3.c_str();
-
-		s.printtomenu(6, " ");
-		s.printtomenu(7, "Item found!");
-		s.printtomenu(8, Temp1);
-		s.printtomenu(9, Temp2);
-		s.printtomenu(10, Temp3);
-		s.printtomenu(11, "5) Buy");
-		s.printtomenu(12, "6) Ignore");
-		s.refreshWin();
-		int key = 0;
-		while (true)
-		{
-		key = s.getKey();
-			if (key == '5')
-			{
-				buy_food();
-
-				for (int i = 6; i<14; ++i)
-					s.printtomenu(i, "                ");
-				s.printtomenu(11, "Item Purchased");
-				return;
-			}
-			else if (key == '6')
-			{
-				s.printtomenu(13, "Item Ignored");
-				return;
-			}
-
-		}
-	}
-	if(map.get_tool(cur_y, cur_x))
-	{
-		buy_tool();
-	}
-	if(map.get_obstacle(cur_y, cur_x))
-	{
-		remove_obstacle();
-	}
-	if(map.get_chest(cur_y, cur_x))
-	{
-		open_chest();
-	}
-	/*if(map.get_ship(cur_y, cur_x))
-	{
-		buy_ship();
-	}
-	if(map.get_binoculars(cur_y, cur_x))
-	{
-		buy_binoculars();
-	}*/				//No map get ship or get binoculars yet
-	if(map.get_clue(cur_y, cur_x))
-	{
-		display_clue();
-	}
-	
 
 }
 
@@ -256,17 +211,18 @@ void game_logic::buy_food()
 {
 	Food * tile_food = map.get_food(cur_y, cur_x);
 	//s.printtomenu("Food: " + tile_food->name + "\nCost: " + to_string(tile_food->cost) + "\nEnergy Gained: " + to_string(tile_food->energy));
-	
+
 	if(hero.getWhiffles() < tile_food->cost)
 	{
 		return;
 	}
 
-	
+
 	hero.addEnergy(tile_food->energy);
 	hero.loseWhiffles(tile_food->cost);
 	map.remove_stuff(cur_y, cur_x);
 
+	s.printtomenu("\nDelicious and nutritious!\n");
 	return;
 }
 
@@ -379,6 +335,7 @@ void game_logic::look(int heroLine, int heroCol) {
 	}
 
 	s.put(heroCol, heroLine, HEROCHAR, HERO);
+	s.putCursor(heroCol, heroLine);
 }
 
 char game_logic::whats_at(int row, int col) {
@@ -414,4 +371,103 @@ char game_logic::whats_at(int row, int col) {
 	}
 
 	return NONE;
+}
+
+void game_logic::discover(int row, int col) {
+
+	if (! map.is_seen(row, col)) {
+		s.clearmenu();
+		return;
+	}
+
+	char item = whats_at(row, col);
+
+	string out;
+
+	switch (item) {
+		case FOOD:
+			{
+				Food * food = map.get_food(row, col);
+				out = "> Food: " + food->name + "\n> Cost: " + to_string(food->cost) + "\n> Energy: " +to_string(food->energy) + "\n";
+			}
+			break;
+		case SHIP:
+			{
+				Tool * ship = map.get_tool(row, col);
+				out = "> Ship: " + ship->name + "\n> Cost: " + to_string(ship->cost) + "\n";
+			}
+			break;
+		case BINOCULARS:
+			{
+				Tool * binoculars = map.get_tool(row, col);
+				out = "> Binoculars: " + binoculars->name + "\n> Cost: " + to_string(binoculars->cost) + "\n";
+			}
+			break;
+		case TOOL:
+			{
+				Tool * tool = map.get_tool(row, col);
+				out = "> Tool: " + tool->name + "(" + to_string(tool->energyDiv) + "X)\n> Cost: " + to_string(tool->cost) + "\n";
+			}
+			break;
+		case OBSTACLE:
+			{
+			Obstacle * obstacle = map.get_obstacle(row, col);
+			out = "> Obstacle: " + obstacle->name + "\nEnergy required: " + to_string(obstacle->cost) + "\n";
+			}
+			break;
+		case CHEST:
+			out = "> Chest: ? whiffles\n";
+	}
+
+	if (map.get_terrain(row, col) == DIAMOND) {
+		out = "> The Royal Diamond\n";
+	}
+
+	s.clearmenu();
+	s.printtomenu(out);
+
+	return;
+}
+
+void game_logic::moveMenu() {
+	s.printtomenu("Options:\n1) North\n2) East\n3) South\n4) West\n");
+	return;
+}
+
+void game_logic::actionMenu() {
+	char item = whats_at(cur_y, cur_x);
+
+	string out = "\n";
+
+	switch (item) {
+		case FOOD:
+			out = "\n5) Purchase and eat food\n";
+			break;
+		case SHIP:
+			out = "\n5) Purchase passage for a voyage\n";
+			break;
+		case BINOCULARS:
+			out = "\n5) Purchase these binoculars\n";
+			break;
+		case TOOL:
+			out = "\n5) Purchase this tool\n";
+			break;
+	}
+
+	s.printtomenu(out);
+	return;
+}
+
+void game_logic::updateStats() {
+
+        string ENE = "Energy: " + to_string(hero.getEnergy()) + " ";
+        const char *echar = ENE.c_str();
+
+        string WH = "Whiffles: " + to_string(hero.getWhiffles()) + " ";
+        const char *wchar = WH.c_str();
+
+        s.printtobot(1, wchar);
+        s.printtobot(2, echar);
+
+	return;
 }

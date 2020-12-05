@@ -37,6 +37,10 @@ class game_logic
 
 		void look(int heroLine, int heroCol);
 		char whats_at(int row, int col);
+		void discover(int row, int col);
+		void moveMenu();
+		void actionMenu();
+		void updateStats();
 };
 
 
