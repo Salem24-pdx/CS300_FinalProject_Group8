@@ -29,13 +29,12 @@ class player
 		int loseEnergy(int x);
 		int addEnergy(int x);
 
-		int getBino();
+		node * getBino();
 		int loseBino();
-		int addBino();
+		int addBino(Tool * bino);
 
-		int getShip();
-		int inShip();
-		int outShip();
+		int inShip(Tool * bino);
+		node * outShip();
 
 		int displayTools(); //Wrappers for the linked list
 
