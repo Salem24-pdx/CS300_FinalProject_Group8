@@ -343,7 +343,7 @@ void game_logic::remove_obstacle()
 		z = s.getKey();
 	}
 	curr = inventory;
-	if(z<=x &&z >='1')
+	if(z<x &&z >='1')
 	{
 		int counter = z-'1';
 		while (curr != NULL && (counter>0))
