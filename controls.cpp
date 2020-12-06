@@ -262,9 +262,11 @@ void game_logic::remove_obstacle()
 	if (hero.getEnergy() < tile_obstacle->cost)
 		return;
 	s.printtomenu("\n> Which tool?\n");
-	int x = '6';
+	int x = '1';
 	int z = 'z';
 	node * curr = inventory;
+	s.clearmenu();
+	discover(cur_y,cur_x);
 	s.printtomenu("\n 0) to break it without a tool\n");
 	while (curr != NULL)
 	{
@@ -276,14 +278,14 @@ void game_logic::remove_obstacle()
 		curr = curr->next;
 		++x;
 	}
-	while((z >= 58 || z <= 53) && z != '0')
+	while((z > '9' || z < '1') && z != '0')
 	{
 		z = s.getKey();
 	}
 	curr = inventory;
-	if(z<x &&z >=54)
+	if(z<=x &&z >='1')
 	{
-		int counter = z-54;
+		int counter = z-'1';
 		while (curr != NULL && (counter>0))
 		{
 			curr = curr->next;
