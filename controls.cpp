@@ -107,12 +107,6 @@ void game_logic::start()
 						buy_tool();
 						updateStats();
 						break;
-					case OBSTACLE:
-						s.clearmenu();
-						moveMenu();
-						remove_obstacle();
-						updateStats();
-						break;
 				}
 			}
 
@@ -125,7 +119,12 @@ void game_logic::start()
 						open_chest();
 						updateStats();
 						break;
-					
+					case OBSTACLE:
+						s.clearmenu();
+						moveMenu();
+						remove_obstacle();
+						updateStats();
+						break;
 					case CLUE:
 						s.clearmenu();
 						moveMenu();
@@ -194,19 +193,19 @@ void game_logic::move(int ch)
 	}
 
 	//moves the player to the next tile
-	if(ch == '1' && cur_y > 1)//move north
+	if(ch == '1' && cur_y > 0)//move north
 	{
 		--cur_y;
 	}
-	else if(ch == '3' && cur_y < 126)//move south
+	else if(ch == '3' && cur_y < 127)//move south
 	{
 		++cur_y;
 	}
-	else if(ch == '4' && cur_x > 1)//move west
+	else if(ch == '4' && cur_x > 0)//move west
 	{
 		--cur_x;
 	}
-	else if(ch == '2' && cur_x < 126)//move east
+	else if(ch == '2' && cur_x < 127)//move east
 	{
 		++cur_x;
 	}
