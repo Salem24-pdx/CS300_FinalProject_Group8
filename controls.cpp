@@ -172,13 +172,53 @@ int game_logic::check_next(int ch)
 void game_logic::move(int ch)
 {
 
-	int tile_check;
+	// do nothing if moving off the map
+        if((ch == '1' && cur_y == 0) || (ch == '3' && cur_y == 127)
+        || (ch == '4' && cur_x == 0) || (ch == '2' && cur_x == 127)) {
+                return;
+        }
 
+	// these are good values to have for several things in this function
+        int next_x = cur_x;
+        int next_y = cur_y;
+
+        if(ch == '1')//check north
+        {
+                --next_y;
+        }
+        else if(ch == '3')//check south
+        {
+                ++next_y;
+        }
+        else if(ch == '4')//check west
+        {
+                --next_x;
+        }
+        else if(ch == '2')//check east
+        {
+                ++next_x;
+        }
 
 	//checks to see what the next tile is
-	tile_check = check_next(ch);
+	int tile_check = map.get_terrain(next_y, next_x);
 
-	if(tile_check == WALL)
+	// ending a voyage, moving out of ship onto land or anther ship
+	if(hero.retrieve(1) && (tile_check != WATER || whats_at(next_y, next_x) == SHIP)) {
+
+		Tool * ship = new Tool;
+		ship->name = hero.retrieve(1)->data.name;
+		ship->cost = hero.retrieve(1)->data.cost;
+		ship->energyDiv = 0;
+		ship->type = 1;
+
+		map.set_tool(cur_y, cur_x, ship);
+		hero.outShip();
+	}
+
+
+	// spend movement energy
+	if(tile_check == WALL || (tile_check == WATER && whats_at(next_y, next_x) != SHIP && !hero.retrieve(1)))
+	// moving into wall or water without being already on or moving onto ship
 	{
 		hero.loseEnergy(1);
 		return;
@@ -187,10 +227,12 @@ void game_logic::move(int ch)
 	{
 		hero.loseEnergy(2);
 	}
-	else if (tile_check != HIDDEN) //edge of map
+	else if (!(tile_check == WATER && hero.retrieve(1)))
+	//not moving to water on a ship
 	{
 		hero.loseEnergy(1);
 	}
+
 
 	//moves the player to the next tile
 	if(ch == '1' && cur_y > 0)//move north
