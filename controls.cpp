@@ -299,7 +299,7 @@ void game_logic::buy_ship()
 		return;
 	}
 
-	hero.inShip();
+	hero.inShip(map.get_tool(cur_y,cur_x));
 	hero.loseWhiffles(50);
 
 	map.remove_stuff(cur_y, cur_x);
@@ -314,7 +314,7 @@ void game_logic::buy_binoculars()
 		return;
 	}
 
-	hero.addBino();
+	hero.addBino(map.get_tool(cur_y,cur_x));
 	hero.loseWhiffles(25);
 	map.remove_stuff(cur_y, cur_x);
 
@@ -326,7 +326,11 @@ void game_logic::display_clue()
 }
 
 void game_logic::look(int heroLine, int heroCol) {
-	int range = 1 + hero.getBino();
+	int range;
+	if(hero.getBino())
+		range = 2;
+	else 
+		range = 1;
 
         for (int c = -1 * range; c <= range; ++c) {
                 for (int l = -1 * range; l <= range; ++l)

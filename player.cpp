@@ -16,34 +16,31 @@ player::player()
 	}
 }
 
-int player::getBino()
+node * player::getBino()
 {
-	return bino;
+	return retrieve(0);
 }
-int player::addBino()
+int player::addBino(Tool * bino)
 {
-	bino = 1;
-	return bino;
+	addTool((array_head[0]),bino);
+	return 1;
 }
 int player::loseBino()
 {
-	bino = 0;
-	return bino;
+	array_head[0] = NULL;
+	return 1;
 }
 
-int player::getShip()
+int player::inShip(Tool * ship)
 {
-	return ship;
+	addTool((array_head[1]),ship);
+	return 1;
 }
-int player::inShip()
+node * player::outShip()
 {
-	ship = 1;
-	return ship;
-}
-int player::outShip()
-{
-	ship = 0;
-	return ship;
+	node * temp = array_head[1];
+	array_head[1] = NULL;
+	return temp;
 }
 
 int player::getWhiffles()	//Function handling players whiffles
