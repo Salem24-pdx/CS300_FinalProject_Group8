@@ -198,9 +198,9 @@ y 65
 # type matches with tool type for obsticle/tool pairing 
 
 [obstacle]
-"Large Tree" 40 1 66 64
-"Rotted Log" 5 1 5 6
-"Boulder" 15 2 7 8
+"Large Tree" 40 2 66 64
+"Rotted Log" 5 2 67 64
+"Boulder" 15 3 7 8
 
 # Clues and their locations
 #

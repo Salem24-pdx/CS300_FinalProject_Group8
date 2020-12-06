@@ -259,33 +259,43 @@ void game_logic::remove_obstacle()
 	//double check function
 	Obstacle * tile_obstacle = map.get_obstacle(cur_y, cur_x);
 	
-	//node * inventory = hero.retrieve(tile_obstacle->type);
+	node * inventory = hero.retrieve(tile_obstacle->type);
 	if (hero.getEnergy() < tile_obstacle->cost)
 		return;
-	//s.printtomenu("\n> Which tool?\n");
-	else
+	s.printtomenu("\n> Which tool?\n");
+	int x = 6;
+	int z = 'z';
+	node * curr = inventory;
+	s.printtomenu("\n 0) to break it without a tool\n");
+	while (curr != NULL)
+	{
+		string tempTool = "\n" + to_string(x) + ") Tool: " + curr->data.name + " Reduce energy cost by " + to_string(curr->data.energyDiv) + "\n"; 
+		s.printtomenu(tempTool);
+		curr = curr->next;
+		++x;
+	}
+	while((z >= 58 || z <= 53) && z != '0')
+	{
+		z = s.getKey();
+	}
+	curr = inventory;
+	if(z <= 57 && z >=54)
+	{
+		int counter = z-54;
+		while (curr != NULL && (counter!=0))
+		{
+			curr = curr->next;
+			--counter;
+		}
+		hero.loseEnergy(tile_obstacle->cost/curr->data.energyDiv);
+		hero.remove(curr->data);
+
+	}
+	else if (z =='0')
 		hero.loseEnergy(tile_obstacle->cost);
+	s.clearmenu();
+	moveMenu();
 	map.remove_stuff(cur_y, cur_x);
-
-	
-	/*if(cost_divider == 0)
-	{
-		hero.loseEnergy(tile_obstacle->cost);
-	}
-	else
-	{
-		hero.loseEnergy(tile_obstacle->cost/cost_divider);
-		if(tile_obstacle->type == 1)
-		{
-			hero.remove("HAMMER");
-		}
-		if(tile_obstacle->type == 2)
-		{
-			hero.remove("AXE");
-		}
-	}
-
-	map.remove_stuff(cur_y, cur_x);*/			//Function needs to be reworked to handle display options and selection options
 
 	return;
 }

@@ -11,7 +11,7 @@ struct tool{	//Tool data type
 };
 
 struct node{	//Linked list of tools
-	tool data;
+	Tool data;
 	node * next;
 };
 
