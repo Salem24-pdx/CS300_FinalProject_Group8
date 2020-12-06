@@ -139,11 +139,14 @@ void game_logic::start()
 //checks to see the next tile before the playere moves there
 int game_logic::check_next(int ch)
 {
+	// we should never be moving to an unrevealed cell, so use HIDDEN to indicate edge of map...
+	if((ch == '1' && cur_y == 0) || (ch == '3' && cur_y == 127)
+	|| (ch == '4' && cur_x == 0) || (ch == '2' && cur_x == 127)) {
+		return HIDDEN;
+	}
 
 	int next_x = cur_x;
 	int next_y = cur_y;
-//	Tile * temp_tile = NULL;
-	
 
 	if(ch == '1' && next_y > 0)//check north
 	{
@@ -161,9 +164,6 @@ int game_logic::check_next(int ch)
 	{
 		++next_x;
 	}
-
-//	temp_tile = map.get_tile(next_y, next_x);
-//	return temp_tile->type;
 
 	return map.get_terrain(next_y, next_x);
 }
@@ -187,7 +187,7 @@ void game_logic::move(int ch)
 	{
 		hero.loseEnergy(2);
 	}
-	else
+	else if (tile_check != HIDDEN) //edge of map
 	{
 		hero.loseEnergy(1);
 	}
