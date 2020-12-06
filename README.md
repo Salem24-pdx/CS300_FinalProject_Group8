@@ -1,2 +1,2 @@
 # CS300_FinalProject_Group8
-# I have pushed a file onto git: Salem 
+# Tool Objects can be whatever number from 2-99 as 0 and 1 are reserved for binoculars and ship respectively. 
