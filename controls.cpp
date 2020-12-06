@@ -259,8 +259,8 @@ void game_logic::remove_obstacle()
 	Obstacle * tile_obstacle = map.get_obstacle(cur_y, cur_x);
 	
 	node * inventory = hero.retrieve(tile_obstacle->type);
-	if (hero.getEnergy() < tile_obstacle->cost)
-		return;
+	//if (hero.getEnergy() < tile_obstacle->cost)
+	//	return;
 	s.printtomenu("\n> Which tool?\n");
 	int x = '1';
 	int z = 'z';
