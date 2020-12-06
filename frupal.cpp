@@ -6,21 +6,22 @@ using namespace std;
 int main()
 {
 	/*player test;
-	test.loseWhiffles(69);
-	tool axe;
+	Tool axe;
 	axe.name = "AXE";
-	axe.type = 2;
+	axe.type = 1;
 	axe.energyDiv = 3;
 
-	tool hammer;
+	Tool hammer;
 	hammer.name = "HAMMER";
-	hammer.type = 1;
+	hammer.type = 0;
 	hammer.energyDiv = 2;
-	cout<<(test.getWhiffles())<<"\n";
-	cout<<(test.getEnergy())<<"\n";
-	test.addTool(axe);
-	test.addTool(hammer);
-	cout<<(test.retrieve(2));
+	test.addTool(1,axe);
+	test.addTool(1,axe);
+	test.addTool(1,axe);
+	test.remove(axe);
+	test.addTool(0,hammer);
+	test.displayTools();
+	cout<<test.retrieve(0);
 	//test.displayTools(); //Some testing i did to make sure functions worked as intended for player class */
 	game_logic game;
 	game.start();

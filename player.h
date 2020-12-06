@@ -41,19 +41,21 @@ class player
 
 		int addTool(Tool * to_add);
 
-		int retrieve(int check);
+		node * retrieve(int check);
 		
-		int remove(string item);
+		int remove(Tool & item);
 	private:
 		int energy;	//Private data types and functions
 		int whiffles;
 		int ship;
 		int bino;
 		node * head;
+		node ** array_head;
+		int array_size;
 		int addTool(node * & head, Tool * to_add);	//Linked list recursive functions
 		int displayTools(node * head);
 		int retrieve(node * head,  int check);
-		int remove (node *  & head, string item);
+		int remove (node *  & head, Tool & item);
 		int removeAll(node * &head);
 
 };

@@ -256,8 +256,8 @@ void game_logic::buy_tool()
 void game_logic::remove_obstacle()
 {
 	//double check function
-	Obstacle * tile_obstacle = map.get_obstacle(cur_y, cur_x);
-	int cost_divider = hero.retrieve(tile_obstacle->type);
+	/*Obstacle * tile_obstacle = map.get_obstacle(cur_y, cur_x);
+	//int cost_divider = hero.retrieve(tile_obstacle->type);
 	
 	if(cost_divider == 0)
 	{
@@ -276,7 +276,7 @@ void game_logic::remove_obstacle()
 		}
 	}
 
-	map.remove_stuff(cur_y, cur_x);
+	map.remove_stuff(cur_y, cur_x);*/			//Function needs to be reworked to handle display options and selection options
 
 	return;
 }
