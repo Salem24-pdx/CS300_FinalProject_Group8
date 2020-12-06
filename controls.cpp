@@ -271,7 +271,9 @@ void game_logic::buy_food()
 	hero.loseWhiffles(tile_food->cost);
 	map.remove_stuff(cur_y, cur_x);
 
-	s.printtomenu("\nDelicious and nutritious!\n");
+	string str = "\nDelicious and nutritious!\nGained " + to_string(tile_food->energy) + "energy!\n";
+	s.printtomenu(str);
+
 	return;
 }
 
@@ -289,6 +291,9 @@ void game_logic::buy_tool()
 	hero.addTool(tile_tool);
 	hero.loseWhiffles(tile_tool->cost);
 	map.remove_stuff(cur_y, cur_x);
+
+	string str = "\nPurchased a lovely " + tile_tool->name + "!\n";
+	s.printtomenu(str);
 
 	return;
 }
@@ -354,6 +359,9 @@ void game_logic::open_chest()
 	//chest * tile_chest = map.get_chest(cur_y,cur_x);
 	hero.addWhiffles(map.get_chest(cur_y, cur_x));
 
+	string str = "\nWow! This chest contains gems worth " + to_string(map.get_chest(cur_y, cur_x)) + " whiffles!\n";
+	s.printtomenu(str);
+
 	map.remove_stuff(cur_y, cur_x);
 
 	return;
@@ -369,7 +377,9 @@ void game_logic::buy_ship()
 	hero.inShip(map.get_tool(cur_y,cur_x));
 	hero.loseWhiffles(50);
 
-	map.remove_stuff(cur_y, cur_x);
+	s.printtomenu("\nReady to sail! Toot toot!\n");
+
+//	map.remove_stuff(cur_y, cur_x);
 
 	return;
 }
@@ -384,6 +394,9 @@ void game_logic::buy_binoculars()
 	hero.addBino(map.get_tool(cur_y,cur_x));
 	hero.loseWhiffles(25);
 	look(cur_y, cur_x);
+
+	s.printtomenu("\nThese spy glasses sure do the trick!\n");
+
 	map.remove_stuff(cur_y, cur_x);
 
 	return;
