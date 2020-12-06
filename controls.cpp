@@ -7,7 +7,7 @@ using namespace std;
 
 game_logic::game_logic()
 {
-	string filename = "savefile.dat";
+	string filename = "leveltemp.dat";
 //	Array * ptrMap = &map;
 	l.loadIn(filename.c_str(), &map);
 	cur_x = l.getHeroCol();
@@ -107,6 +107,12 @@ void game_logic::start()
 						buy_tool();
 						updateStats();
 						break;
+					case OBSTACLE:
+						s.clearmenu();
+						moveMenu();
+						remove_obstacle();
+						updateStats();
+						break;
 				}
 			}
 
@@ -119,12 +125,7 @@ void game_logic::start()
 						open_chest();
 						updateStats();
 						break;
-					case OBSTACLE:
-						s.clearmenu();
-						moveMenu();
-						remove_obstacle();
-						updateStats();
-						break;
+					
 					case CLUE:
 						s.clearmenu();
 						moveMenu();
@@ -237,7 +238,7 @@ void game_logic::buy_food()
 void game_logic::buy_tool()
 {
 	Tool * tile_tool = map.get_tool(cur_y, cur_x);
-	s.printtomenu("Tool: " + tile_tool->name + "\nCost: " + to_string(tile_tool->cost));
+	//s.printtomenu("Tool: " + tile_tool->name + "\nCost: " + to_string(tile_tool->cost));
 
 	if(hero.getWhiffles() < tile_tool->cost)
 	{
@@ -256,10 +257,18 @@ void game_logic::buy_tool()
 void game_logic::remove_obstacle()
 {
 	//double check function
-	/*Obstacle * tile_obstacle = map.get_obstacle(cur_y, cur_x);
-	//int cost_divider = hero.retrieve(tile_obstacle->type);
+	Obstacle * tile_obstacle = map.get_obstacle(cur_y, cur_x);
 	
-	if(cost_divider == 0)
+	//node * inventory = hero.retrieve(tile_obstacle->type);
+	if (hero.getEnergy() < tile_obstacle->cost)
+		return;
+	//s.printtomenu("\n> Which tool?\n");
+	else
+		hero.loseEnergy(tile_obstacle->cost);
+	map.remove_stuff(cur_y, cur_x);
+
+	
+	/*if(cost_divider == 0)
 	{
 		hero.loseEnergy(tile_obstacle->cost);
 	}
@@ -422,8 +431,8 @@ void game_logic::discover(int row, int col) {
 			break;
 		case OBSTACLE:
 			{
-			Obstacle * obstacle = map.get_obstacle(row, col);
-			out = "> Obstacle: " + obstacle->name + "\nEnergy required: " + to_string(obstacle->cost) + "\n";
+				Obstacle * obstacle = map.get_obstacle(row, col);
+				out = "> Obstacle: " + obstacle->name + "\nEnergy required: " + to_string(obstacle->cost) + "\n";
 			}
 			break;
 		case CHEST:
@@ -462,6 +471,9 @@ void game_logic::actionMenu() {
 			break;
 		case TOOL:
 			out = "\n5) Purchase this tool\n";
+			break;
+		case OBSTACLE:
+			out = "\n5) Break this obstacle\n";
 			break;
 	}
 

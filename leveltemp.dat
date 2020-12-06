@@ -183,10 +183,10 @@ y 65
 # protip: to indicate a tool has been purchased, just set its cost to 0
 
 [tool]
-"Hi-Tech Tree-cuttin' Axe" 20 2 1 10 15
+"Hi-Tech Tree-cuttin' Axe" 20 2 2 63 64
 "Bargain Basement Chain Saw" 30 3 1 15 10
 "Hammer" 10 2 2 15 15
-"Binoculars" 50 0 0 11 11
+"Binoculars" 50 0 0 64 66
 "Ship" 100 0 1 12 12
 
 # Obstacles and their locations
@@ -198,7 +198,7 @@ y 65
 # type matches with tool type for obsticle/tool pairing 
 
 [obstacle]
-"Large Tree" 40 1 5 5
+"Large Tree" 40 1 66 64
 "Rotted Log" 5 1 5 6
 "Boulder" 15 2 7 8
 
