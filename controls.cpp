@@ -34,7 +34,7 @@ void game_logic::start()
 	updateStats();
 
 	int key = 0;
-	while (key != 'q' && hero.getEnergy()>=0){
+	while (key != 'q' && hero.getEnergy()>=0 && map.get_terrain(cur_y,cur_x) != DIAMOND){
 
 		key = s.getKey();
 
@@ -135,6 +135,19 @@ void game_logic::start()
 			}
 		}
 	}
+	if (hero.getEnergy()<=0)
+	{
+		s.clearmenu();
+		s.printtomenu("\n YOU HAVE RUN OUT OF ENERGY AND LOST");
+		sleep(5);
+	}
+	if (map.get_terrain(cur_y,cur_x) == DIAMOND)
+	{
+		s.clearmenu();
+		s.printtomenu("\n YOU HAVE FOUND THE DIAMOND AND WON");
+		sleep(5);
+	}
+
 }
 //checks to see the next tile before the playere moves there
 int game_logic::check_next(int ch)
@@ -456,7 +469,7 @@ void game_logic::discover(int row, int col) {
 
 	if (! map.is_seen(row, col)) {
 		s.clearmenu();
-		return;
+		return ;
 	}
 
 	char item = whats_at(row, col);
