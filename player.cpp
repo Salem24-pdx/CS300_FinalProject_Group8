@@ -8,9 +8,9 @@ player::player()
 	head = NULL;
 	ship = 0;
 	bino = 0;
-	array_size = 2;
-	array_head = new node *[2];
-	for (int i = 0; i<2; i++)
+	array_size = 100;
+	array_head = new node *[array_size];
+	for (int i = 0; i<array_size; i++)
 	{
 		array_head[i]=NULL;
 	}
