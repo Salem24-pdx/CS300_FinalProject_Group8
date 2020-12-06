@@ -192,8 +192,9 @@ y 65
 
 [tool]
 "Hi-Tech Tree-cuttin' Axe" 20 2 2 63 64
-"Bargain Basement Chain Saw" 30 3 1 15 10
-"Hammer" 10 2 2 15 15
+"Bargain Basement Chain Saw" 30 3 2 63 63
+"Bargain Basement Chain Saw" 30 4 2 63 62
+"Hammer" 10 3 2 15 15
 "Binoculars" 50 0 0 64 66
 "Ship" 100 0 1 12 12
 
