@@ -339,6 +339,7 @@ void game_logic::buy_binoculars()
 
 	hero.addBino(map.get_tool(cur_y,cur_x));
 	hero.loseWhiffles(25);
+	look(cur_y, cur_x);
 	map.remove_stuff(cur_y, cur_x);
 
 	return;
