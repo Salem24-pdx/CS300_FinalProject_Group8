@@ -6,6 +6,7 @@
 
 #include"array.h"
 
+
 Array::Array()
 {
 	array = new Cell * [128];
