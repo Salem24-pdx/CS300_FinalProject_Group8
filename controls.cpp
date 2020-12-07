@@ -382,13 +382,16 @@ void game_logic::open_chest()
 
 void game_logic::buy_ship()
 {
-	if(hero.getWhiffles() < 50)
+	Tool * tile_ship = map.get_tool(cur_y, cur_x);
+
+	if(hero.getWhiffles() < tile_ship->cost)
 	{
 		return;
 	}
 
 	hero.inShip(map.get_tool(cur_y,cur_x));
-	hero.loseWhiffles(50);
+	hero.loseWhiffles(tile_ship->cost);
+	map.remove_stuff(cur_y, cur_x);
 
 	s.printtomenu("\nReady to sail! Toot toot!\n");
 
@@ -399,13 +402,16 @@ void game_logic::buy_ship()
 
 void game_logic::buy_binoculars()
 {
-	if(hero.getWhiffles() < 25)
+	Tool * tile_bino = map.get_tool(cur_y, cur_x);
+
+	if(hero.getWhiffles() < tile_bino->cost)
 	{
 		return;
 	}
 
 	hero.addBino(map.get_tool(cur_y,cur_x));
-	hero.loseWhiffles(25);
+	hero.loseWhiffles(tile_bino->cost);
+	map.remove_stuff(cur_y, cur_x);
 	look(cur_y, cur_x);
 
 	s.printtomenu("\nThese spy glasses sure do the trick!\n");
