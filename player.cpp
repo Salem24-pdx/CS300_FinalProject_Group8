@@ -106,6 +106,7 @@ int player::addTool(node * & head,Tool * to_add)	//Function to add a tool that m
 		temp->data.name = to_add->name;
 		temp->data.type = to_add->type;
 		temp->data.energyDiv = to_add->energyDiv;
+		temp->data.cost = to_add->cost;
 		temp->next=NULL;
 		head = temp;
 		return 1;
