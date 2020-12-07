@@ -210,7 +210,7 @@ y 65
 "Hammer" 10 3 2 10 69
 "Hammer" 10 3 2 49 81 
 "Binoculars" 50 0 0 64 66
-"Ship" 38 12 1 12 12
+"Ship" 100 0 1 40 42
 
 # Obstacles and their locations
 #
