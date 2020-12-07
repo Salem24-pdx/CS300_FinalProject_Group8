@@ -42,6 +42,16 @@ void game_logic::start()
 			hero.addEnergy(1000000);
 			updateStats();
 		}
+		if (key == 'r') {
+        		for (int col = 0; col < 128; ++col) {
+                		for (int row = 0; row < 128; ++row)
+                		{
+                                	s.put(row, col, (char) whats_at(col, row), (int) map.get_terrain(col, row));
+                               		map.set_seen(col, row, true);
+					s.refreshWin();
+                		}
+        		}
+		}
 
 		//move hero
 		if (key == '1' || key == '2' || key == '3' || key == '4')
