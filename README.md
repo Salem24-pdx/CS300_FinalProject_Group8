@@ -16,3 +16,5 @@ https://easyretro.io/publicboard/7Im8IBADpCP0i7Ze1FVjv2SDnWW2/53e5f858-ca5e-4ca4
 https://docs.google.com/document/d/1MEAVVE-yLikToAkB8LAPG-U5LqKrLFqh8jPOOY_m4FI/edit?usp=sharing
 3. UML Diagram:
 https://docs.google.com/drawings/d/1uffjwLkCpJ63nvGp6NW91DBjKrjTRDKBBNnPjVSFF5o/edit?usp=sharing
+# Trailer and Presentation
+<Link waiting>
