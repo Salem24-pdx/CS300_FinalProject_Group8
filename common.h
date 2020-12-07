@@ -1,11 +1,12 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+
 /*
  * 
  */
 
-
+#include <unistd.h>
 #include<iostream>
 #include<cctype>
 #include<cstring>
