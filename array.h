@@ -8,19 +8,15 @@
 
 struct Cell
 {
-	Food * food;
-	Obstacle * obstacle;
-	Tool * tool;
-	Tile * tile;
-	
-	bool clue;			// the clue to the diamond
-	bool has_clue;
-	bool seen;
-	int chest;	
-	int terrain;
-	//bool diamond;
-	//bool ship;
-	//bool binocular;
+	Food * food = NULL;
+	Obstacle * obstacle = NULL;
+	Tool * tool = NULL;
+
+	bool clue = false;
+	bool has_clue = false;
+	bool seen = false;
+	int chest = 0;	
+	int terrain = HIDDEN;
 };
 
 //an 2d array that contain cells
@@ -29,13 +25,12 @@ class Array
 	public:
 	Array();
 	~Array();
-		
+
 	//getters
-	Food *& get_food(int row, int col);
-	Obstacle *& get_obstacle(int row, int col);
-	Tool *& get_tool(int row, int col);
-	Tile *& get_tile(int row, int col);
-	int get_chest(int row, int col);	
+	Food * get_food(int row, int col);
+	Obstacle * get_obstacle(int row, int col);
+	Tool * get_tool(int row, int col);
+	int get_chest(int row, int col);
 	bool get_clue(int row, int col); //return truthfulness
 	bool is_clue(int row, int col);
 	bool is_seen(int row, int col);
@@ -50,12 +45,12 @@ class Array
 	void place_terrain(int row, int col, int type);	
 	void set_chest(int row, int col, int money);
 	void set_clue(int row, int col, bool clue);
-	void set_terrain(int row, int col, Cell *);	
-	
+
 	//return a single character to check what in the cell
 	//char check_cell(int row, int col);
 	//remove tools, obstacle, food, chest, return true if success
 	bool remove_stuff(int row, int col);
+
 	private:
 	Cell ** array;	
 };
