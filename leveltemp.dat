@@ -203,14 +203,14 @@ y 65
 "Hi-Tech Tree-cuttin' Axe" 20 2 2 21 90
 "Hi-Tech Tree-cuttin' Axe" 20 2 2 90 32
 "Hi-Tech Tree-cuttin' Axe" 20 2 2 101 105
-"Bargain Basement Chain Saw" 30 3 2 43 54
-"Bargain Basement Chain Saw" 30 3 2 115 20
+"Bargain Basement Chain Saw" 30 3 2 45 54
+"Bargain Basement Chain Saw" 30 3 2 115 30
 "Hammer" 10 3 2 51 15
 "Hammer" 10 3 2 83 40
 "Hammer" 10 3 2 10 69
 "Hammer" 10 3 2 49 81 
 "Binoculars" 50 0 0 64 66
-"Ship" 100 0 1 40 42
+"Ship" 100 0 1 39 42
 
 # Obstacles and their locations
 #
