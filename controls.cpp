@@ -440,9 +440,9 @@ void game_logic::display_clue()
 	int dif = 256;
 	srand(time(0));
 
-		for (int i = 0; i<(127) ; ++i)
+		for (int i = 0; i<=(127) ; ++i)
 		{
-			for (int z = 0; z<(127) ; z++)
+			for (int z = 0; z<=(127) ; z++)
 			{
 				if(map.get_terrain(i,z) == DIAMOND && (abs(cur_y - i)+abs(cur_x - z))<dif )
 				{
@@ -465,8 +465,16 @@ void game_logic::display_clue()
 			}
 			else 
 			{
-				x = (rand() % 56 + 0) - (rand() % 56 + 0);
-				y = (rand() % 56 + 0) - (rand() % 56 + 0);
+				int new_x = x;
+				int new_y = y;
+
+				while (x == new_x && y == new_y) {
+					x = rand() % 128;
+					y = rand() % 128;
+				}
+
+				x = x - cur_x;
+				y = y - cur_y;
 			}
 			if (x>0)
 				xdir = "East";
