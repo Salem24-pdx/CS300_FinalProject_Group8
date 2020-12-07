@@ -586,7 +586,10 @@ void game_logic::discover(int row, int col) {
 			}
 			break;
 		case CHEST:
-			out = "> Chest: ? whiffles\n";
+			out = "> An ornate chest.\n";
+			break;
+		case CLUE:
+			out = "> A clue toward your destiny!\n";
 	}
 
 	if (map.get_terrain(row, col) == DIAMOND) {
@@ -623,7 +626,7 @@ void game_logic::actionMenu() {
 			out = "\n5) Purchase this tool\n";
 			break;
 		case OBSTACLE:
-			out = "\n5) Break this obstacle\n";
+			out = "\n5) Remove this obstacle\n";
 			break;
 	}
 
