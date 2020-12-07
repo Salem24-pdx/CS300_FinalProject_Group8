@@ -10,6 +10,7 @@
 #include<iostream>
 #include<cctype>
 #include<cstring>
+#include <ctime>
 using namespace std;
 
 // common use data structures and constant

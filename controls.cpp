@@ -417,6 +417,55 @@ void game_logic::buy_binoculars()
 
 void game_logic::display_clue()
 {
+
+	int x = cur_x;
+	int y = cur_y;
+	int flag = 0;
+	int dif = 256;
+	srand(time(0));
+
+		for (int i = 0; i<(127) ; ++i)
+		{
+			for (int z = 0; z<(127) ; z++)
+			{
+				if(map.get_terrain(i,z) == DIAMOND && (abs(cur_y - i)+abs(cur_x - z))<dif )
+				{
+					x = z;
+					y = i;
+					flag = 1;
+					dif = (abs(cur_y-i)+abs(cur_x -z));
+				}
+
+			}
+		}
+		if (flag == 1)
+		{
+			string xdir;
+			string ydir; 
+			if (map.get_clue(cur_x,cur_y) == true)
+			{
+			x = x - cur_x;
+			y = y - cur_y;
+			}
+			else 
+			{
+				x = (rand() % 56 + 0) - (rand() % 56 + 0);
+				y = (rand() % 56 + 0) - (rand() % 56 + 0);
+			}
+			if (x>0)
+				xdir = "East";
+			else 
+				xdir = "West";
+			if (y<0)
+				ydir = "North";
+			else
+				ydir = "South";
+			string clue = "\nThe royal diamonds are located " + to_string(abs(y)) + " grovniks to the " + ydir + " and " + to_string(abs(x)) + " grovniks to the " + xdir;
+			const char * cluechar = clue.c_str();
+			s.printtomenu(cluechar);
+		}
+
+	map.remove_stuff(cur_y,cur_x);
 }
 
 void game_logic::look(int heroLine, int heroCol) {

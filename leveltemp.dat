@@ -152,7 +152,7 @@ wwwwwwwwwwwwwwwwooooooooooooooowwwwwwwoooo$oooooooooooooooooooooooooooooxxxxoooo
 wwwwwwwwooooooollllooooooooooowwwwwwwwwoooooooooooooooooxxoooooooooooooooxxooooooooooooooooooollooooowwwwwooooooooooooooooowwwww
 wwwwoooooooooollloooooooooooowwwwwwwwwwwooooooooooooooooxxooooooooooooooooxxx$wwwooooooooooooolloooooowwwoooooooooooooooooowwwww
 wwwwwwwwoooooolooooooooooooooowwwwwwwxxxxwwwwwwwwwwwwwwwwxxoooooooooooooooooooowwwooooooooooolllooooooxxooooooowwwwwwwwwwwwwwwww
-wwwwwwwwwooooooooooooooooooooooooowwwwxxwwwwwwwwwwwwwwwwwwxxoooooooooooooooooowwwooooooooooooollooooooxoooooooowwwwwwwwwwwwwwwww
+$wwwwwwwwooooooooooooooooooooooooowwwwxxwwwwwwwwwwwwwwwwwwxxoooooooooooooooooowwwooooooooooooollooooooxoooooooowwwwwwwwwwwwwwwww
 ################################################################################################################################
 
 # Hero attributes
@@ -238,7 +238,7 @@ y 65
 #   truthfulness x y
 
 [clue]
-true 26 7
+false 64 64
 true 19 2
 false 128 0 
 

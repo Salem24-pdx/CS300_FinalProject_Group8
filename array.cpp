@@ -195,6 +195,7 @@ bool Array::remove_stuff(int row, int col)
 	array[row][col].obstacle = NULL;
 	array[row][col].tool = NULL;
 	array[row][col].chest = 0;
+	array[row][col].has_clue = false;
 
 
 	if(array[row][col].food != NULL)
