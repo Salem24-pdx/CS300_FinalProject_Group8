@@ -1,4 +1,4 @@
-# CS300_FinalProject_Group8  
+# CS300_FinalProject_Group8 
 # Members  
 Salem Alathari, Gary Barron, Anthony Chin, Margarita Maligaya, Jiawei Liu
 
@@ -14,7 +14,7 @@ The player starts the game and can quit anytime by pressing the q key. The user 
 # Features  
 Allows the user to move and explore tiles previously visited. Allows the user to purchase food for energy. Allows the user to remove obstacles if encountered. Allows the user to buy tools that can be spent on reducing energy consumption in removal of obstacles. Allows the user to traverse water tiles by purchasing a ship that disembarks when on land. 
 
-#Links  
+# Links  
 1. Sprint 3 Retrospective - Group 8:
 https://easyretro.io/publicboard/7Im8IBADpCP0i7Ze1FVjv2SDnWW2/53e5f858-ca5e-4ca4-8a96-34bcfef231be
 2. Google Doc
